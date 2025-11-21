@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pişkin Restaurant - Profesyonel Yönetim Paneli</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f6fa;
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: #2c3e50;
+            color: white;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        
+        .sidebar-header {
+            padding: 30px 20px;
+            background: #1a252f;
+            text-align: center;
+            border-bottom: 2px solid #34495e;
+        }
+        
+        .sidebar-header h2 {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+        
+        .sidebar-header p {
+            font-size: 12px;
+            color: #95a5a6;
+        }
+        
+        .sidebar-menu {
+            padding: 20px 0;
+        }
+        
+        .menu-item {
+            padding: 15px 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border-left: 4px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .menu-item:hover {
+            background: #34495e;
+            border-left-color: #3498db;
+        }
+        
+        .menu-item.active {
+            background: #34495e;
+            border-left-color: #3498db;
+        }
+        
+        .menu-item i {
+            width: 20px;
+            font-size: 18px;
+        }
+        
+        .logout-btn {
+            padding: 15px 25px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            cursor: pointer;
+            width: calc(100% - 50px);
+            margin: 20px 25px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: #c0392b;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            padding: 30px;
+        }
+        
+        .content-header {
+            background: white;
+            padding: 25px 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .content-header h1 {
+            color: #2c3e50;
+            font-size: 28px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .btn-save-all {
+            background: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+        
+        .btn-save-all:hover {
+            background: #229954;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+        }
+        
+        .content-section {
+            display: none;
+            animation: fadeIn 0.3s;
+        }
+        
+        .content-section.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        
+        .card-header i {
+            color: #3498db;
+            font-size: 24px;
+        }
+        
+        .card-header h3 {
+            color: #2c3e50;
+            font-size: 20px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="tel"],
+        .form-group input[type="url"],
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ecf0f1;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .color-picker-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .color-picker-group input[type="color"] {
+            width: 60px;
+            height: 45px;
+            border: 2px solid #ecf0f1;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        
+        .color-picker-group input[type="text"] {
+            flex: 1;
+        }
+        
+        /* Image Manager */
+        .image-manager {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+        
+        .image-upload-box {
+            border: 2px dashed #bdc3c7;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: #f8f9fa;
+        }
+        
+        .image-upload-box:hover {
+            border-color: #3498db;
+            background: #e8f4f8;
+        }
+        
+        .image-upload-box.has-image {
+            border-style: solid;
+            border-color: #27ae60;
+            padding: 10px;
+            background: white;
+        }
+        
+        .image-preview {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+        
+        .image-upload-box i {
+            font-size: 48px;
+            color: #95a5a6;
+            margin-bottom: 10px;
+        }
+        
+        .image-upload-box input[type="file"] {
+            display: none;
+        }
+        
+        .image-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 13px;
+        }
+        
+        .image-status {
+            font-size: 11px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        
+        .btn-remove-image {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-remove-image:hover {
+            background: #c0392b;
+            transform: scale(1.1);
+        }
+        
+        .btn-change-image {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-top: 5px;
+            transition: all 0.3s;
+        }
+        
+        .btn-change-image:hover {
+            background: #2980b9;
+        }
+        
+        .success-message {
+            background: #27ae60;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 6px;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            z-index: 2000;
+            animation: slideIn 0.3s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .success-message.show {
+            display: flex;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(400px); }
+            to { transform: translateX(0); }
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .stat-card i {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .stat-card.blue { color: #3498db; }
+        .stat-card.green { color: #27ae60; }
+        .stat-card.orange { color: #e67e22; }
+        .stat-card.purple { color: #9b59b6; }
+        
+        .stat-card h4 {
+            font-size: 28px;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card p {
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>🍽️ Pişkin Restaurant</h2>
+            <p>Profesyonel Yönetim Paneli</p>
+        </div>
+        
+        <div class="sidebar-menu">
+            <div class="menu-item active" onclick="showSection('dashboard')">
+                <i class="fas fa-home"></i>
+                <span>Kontrol Paneli</span>
+            </div>
+            <div class="menu-item" onclick="showSection('hero')">
+                <i class="fas fa-image"></i>
+                <span>Ana Sayfa Slider</span>
+            </div>
+            <div class="menu-item" onclick="showSection('menu-photos')">
+                <i class="fas fa-utensils"></i>
+                <span>Menü Fotoğrafları</span>
+            </div>
+            <div class="menu-item" onclick="showSection('gallery-photos')">
+                <i class="fas fa-images"></i>
+                <span>Galeri Fotoğrafları</span>
+            </div>
+            <div class="menu-item" onclick="showSection('content')">
+                <i class="fas fa-align-left"></i>
+                <span>İçerik Yönetimi</span>
+            </div>
+            <div class="menu-item" onclick="showSection('theme')">
+                <i class="fas fa-palette"></i>
+                <span>Tema & Renkler</span>
+            </div>
+            <div class="menu-item" onclick="showSection('contact')">
+                <i class="fas fa-phone"></i>
+                <span>İletişim Bilgileri</span>
+            </div>
+            <div class="menu-item" onclick="showSection('seo')">
+                <i class="fas fa-search"></i>
+                <span>SEO Ayarları</span>
+            </div>
+        </div>
+        
+        <button class="logout-btn" onclick="window.location.href='index.html'">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Siteyi Görüntüle</span>
+        </button>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="content-header">
+            <h1><i class="fas fa-tachometer-alt"></i> Yönetim Paneli</h1>
+            <button class="btn-save-all" onclick="saveAllChanges()">
+                <i class="fas fa-save"></i>
+                Tüm Değişiklikleri Kaydet
+            </button>
+        </div>
+        
+        <!-- Dashboard Section -->
+        <div id="dashboard" class="content-section active">
+            <div class="stats-grid">
+                <div class="stat-card blue">
+                    <i class="fas fa-images"></i>
+                    <h4 id="sliderCount">7</h4>
+                    <p>Slider Görseli</p>
+                </div>
+                <div class="stat-card green">
+                    <i class="fas fa-utensils"></i>
+                    <h4 id="menuCount">6</h4>
+                    <p>Menü Fotoğrafı</p>
+                </div>
+                <div class="stat-card orange">
+                    <i class="fas fa-image"></i>
+                    <h4 id="galleryCount">6</h4>
+                    <p>Galeri Fotoğrafı</p>
+                </div>
+                <div class="stat-card purple">
+                    <i class="fas fa-check-circle"></i>
+                    <h4>100%</h4>
+                    <p>Site Durumu</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-info-circle"></i>
+                    <h3>Hoş Geldiniz!</h3>
+                </div>
+                <p style="color: #7f8c8d; line-height: 1.6;">
+                    Pişkin Restaurant profesyonel yönetim paneline hoş geldiniz. Bu panelden sitenizin tüm içeriğini, 
+                    fotoğraflarını, renklerini ve ayarlarını kolayca yönetebilirsiniz.
+                </p>
+                <br>
+                <p style="color: #7f8c8d; line-height: 1.6;">
+                    <strong>📸 Fotoğraf Yönetimi:</strong> Sol menüden ilgili bölümü seçerek fotoğrafları yükleyebilir, değiştirebilir veya silebilirsiniz.
+                    <br><br>
+                    <strong>🎨 Tema Ayarları:</strong> Sitenizin renklerini özelleştirebilir ve markanıza uygun bir görünüm oluşturabilirsiniz.
+                    <br><br>
+                    <strong>💾 Otomatik Kayıt:</strong> Tüm değişiklikleriniz tarayıcınızda saklanır ve anında uygulanır.
+                </p>
+            </div>
+        </div>
+        
+        <!-- Hero Slider Section -->
+        <div id="hero" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-image"></i>
+                    <h3>Ana Sayfa Slider Görselleri (7 Adet)</h3>
+                </div>
+                <p style="color: #7f8c8d; margin-bottom: 20px;">
+                    Ana sayfanızda dönen slider görsellerini buradan yönetin. Önerilen boyut: 1920x1080px
+                </p>
+                <div class="image-manager">
+                    <div class="image-upload-box" id="hero1Box">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="image-label">Slider Görseli 1</div>
+                        <div class="image-status">Fotoğraf yükleyin</div>
+                        <input type="file" id="hero1" accept="image/*" onchange="handleImageUpload('hero1', 'restaurant1.jpg')">
+                    </div>
+                    <div class="image-upload-box" id="hero2Box">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="image-label">Slider Görseli 2</div>
+                        <div class="image-status">Fotoğraf yükleyin</div>
+                        <input type="file" id="hero2" accept="image/*" onchange="handleImageUpload('hero2', 'restaurant2.jpg')">
+                    </div>
+                    <div class="image-upload-box" id="hero3Box">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="image-label">Slider Görseli 3</div>
+                        <div class="image-status">Fotoğraf yükleyin</div>
+                        <input type="file" id="hero3" accept="image/*" onchange="handleImageUpload('hero3', 'restaurant3.jpg')">
+                    </div>
+                    <div class="image-upload-box" id="hero4Box">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="image-label">Slider Görseli 4</div>
+                        <div class="image-status">Fotoğraf yükleyin</div>
+                        <input type="file" id="hero4" accept="image/*" onchange="handleImageUpload('hero4', 'restaurant4.jpg')">
+                    </div>
+                    <div class="image-upload-box" id="hero5Box">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="image-label">Slider Görseli 5</div>
+                        <div class="image-status">Fotoğraf yükleyin</div>
+                        <input type="file" id="hero5" accept="image/*" onchange="handleImageUpload('hero5', 'restaurant5.jpg')">
+                    </div>
+                    <div class="image-upload-box" id="hero6Box">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="image-label">Slider Görseli 6</div>
+                        <div class="image-status">Fotoğraf yükleyin</div>
+                        <input type="file" id="hero6" accept="image/*" onchange="handleImageUpload('hero6', 'restaurant6.jpg')">
+                    </div>
+                    <div class="image-upload-box" id="hero7Box">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="image-label">Slider Görseli 7</div>
+                        <div class="image-status">Fotoğraf yükleyin</div>
+                        <input type="file" id="hero7" accept="image/*" onchange="handleImageUpload('hero7', 'restaurant7.jpg')">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Menu Photos Section -->
+        <div id="menu-photos" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Menü Fotoğrafları (6 Adet)</h3>
+                </div>
+                <p style="color: #7f8c8d; margin-bottom: 20px;">
+                    Menü bölümünde görünecek yemek fotoğraflarınızı buradan yönetin. Önerilen boyut: 800x800px (kare)
+                </p>
+                <div class="image-manager">
+                    <div class="image-upload-box" id="menu1Box">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="image-label">Menü Fotoğrafı 1</div>
+                        <div class="image-status">Fotoğraf yükleyin</div>
+                        <input type="file" id="menu1" accept="image/*" onchange="handleImageUpload('menu1', 'menu1.jpg')">
+                    </div>
+                    <div class="image-upload-box" id="menu2Box">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="image-label">Menü Fotoğrafı 2</div>
+                        <div class="image-status">Fotoğraf yükleyin</div>
+                        <input type="file" id="menu2" accept="image/*" onchange="handleImageUpload('menu2', 'menu2.jpg')">
+                    </div>
+                    <div class="image-upload-box" id="menu3Box">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="image-label">Menü Fotoğrafı 3</div>
+                        <div class="image-status">Fotoğraf yükleyin</div>
+                        <input type="file" id="menu3" accept="image/*" onchange="handleImageUpload('menu3', 'menu3.jpg')">
+                    </div>
+                    <div class="image-upload-box" id="menu4Box">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="image-label">Menü Fotoğrafı 4</div>
+                        <div class="image-status">Fotoğraf yükleyin</div>
+                        <input type="file" id="menu4" accept="image/*" onchange="handleImageUpload('menu4', 'menu4.jpg')">
+                    </div>
+                    <div class="image-upload-box" id="menu5Box">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="image-label">Menü Fotoğrafı 5</div>
+                        <div class="image-status">Fotoğraf yükleyin</div>
+                        <input type="file" id="menu5" accept="image/*" onchange="handleImageUpload('menu5', 'menu5.jpg')">
+                    </div>
+                    <div class="image-upload-box" id="menu6Box">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="image-label">Menü Fotoğrafı 6</div>
+                        <div class="image-status">Fotoğraf yükleyin</div>
+                        <input type="file" id="menu6" accept="image/*" onchange="handleImageUpload('menu6', 'menu6.jpg')">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Gallery Photos Section -->
+        <div id="gallery-photos" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-images"></i>
+                    <h3>Galeri Fotoğrafları (6 Adet)</h3>
+                </div>
+                <p style="color: #7f8c8d; margin-bottom: 20px;">
+                    Galeri bölümünde görünecek fotoğraflarınızı buradan yönetin. Önerilen boyut: 1200x800px
+                </p>
+                <div class="image-manager">
+                    <div class="image-upload-box" id="gallery1Box">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="image-label">Galeri Fotoğrafı 1</div>
+                        <div class="image-status">Fotoğraf yükleyin</div>
+                        <input type="file" id="gallery1" accept="image/*" onchange="handleImageUpload('gallery1', 'gallery1.jpg')">
+                    </div>
+                    <div class="image-upload-box" id="gallery2Box">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="image-label">Galeri Fotoğrafı 2</div>
+                        <div class="image-status">Fotoğraf yükleyin</div>
+                        <input type="file" id="gallery2" accept="image/*" onchange="handleImageUpload('gallery2', 'gallery2.jpg')">
+                    </div>
+                    <div class="image-upload-box" id="gallery3Box">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="image-label">Galeri Fotoğrafı 3</div>
+                        <div class="image-status">Fotoğraf yükleyin</div>
+                        <input type="file" id="gallery3" accept="image/*" onchange="handleImageUpload('gallery3', 'gallery3.jpg')">
+                    </div>
+                    <div class="image-upload-box" id="gallery4Box">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="image-label">Galeri Fotoğrafı 4</div>
+                        <div class="image-status">Fotoğraf yükleyin</div>
+                        <input type="file" id="gallery4" accept="image/*" onchange="handleImageUpload('gallery4', 'gallery4.jpg')">
+                    </div>
+                    <div class="image-upload-box" id="gallery5Box">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="image-label">Galeri Fotoğrafı 5</div>
+                        <div class="image-status">Fotoğraf yükleyin</div>
+                        <input type="file" id="gallery5" accept="image/*" onchange="handleImageUpload('gallery5', 'gallery5.jpg')">
+                    </div>
+                    <div class="image-upload-box" id="gallery6Box">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <div class="image-label">Galeri Fotoğrafı 6</div>
+                        <div class="image-status">Fotoğraf yükleyin</div>
+                        <input type="file" id="gallery6" accept="image/*" onchange="handleImageUpload('gallery6', 'gallery6.jpg')">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Content Management Section -->
+        <div id="content" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-home"></i>
+                    <h3>Ana Sayfa İçeriği</h3>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Restaurant İsmi</label>
+                        <input type="text" id="restaurantName" placeholder="Pişkin Restaurant">
+                    </div>
+                    <div class="form-group">
+                        <label>Slogan</label>
+                        <input type="text" id="slogan" placeholder="Lezzetin Adresi">
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Hero Açıklama</label>
+                        <textarea id="heroDescription" placeholder="Ana sayfada görünecek kısa açıklama"></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-quote-left"></i>
+                    <h3>Mevlana Sözleri</h3>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Sol Taraf Alıntısı</label>
+                        <textarea id="mevlanaLeft" placeholder="Sol tarafta görünecek Mevlana sözü"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Sağ Taraf Alıntısı</label>
+                        <textarea id="mevlanaRight" placeholder="Sağ tarafta görünecek Mevlana sözü"></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-utensils"></i>
+                    <h3>Menü Bölümü</h3>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Menü Başlığı</label>
+                        <input type="text" id="menuTitle" placeholder="Lezzet Menümüz">
+                    </div>
+                    <div class="form-group">
+                        <label>Menü Alt Başlığı</label>
+                        <input type="text" id="menuSubtitle" placeholder="Özel tariflerimiz">
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Menü Açıklaması</label>
+                        <textarea id="menuDescription" placeholder="Menü hakkında kısa bilgi"></textarea>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-info-circle"></i>
+                    <h3>Hakkımızda</h3>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label>Başlık</label>
+                        <input type="text" id="aboutTitle" placeholder="Hakkımızda">
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Açıklama</label>
+                        <textarea id="aboutText" placeholder="Restoranınız hakkında detaylı bilgi"></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Theme Section -->
+        <div id="theme" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-palette"></i>
+                    <h3>Tema Renkleri</h3>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Ana Renk (Primary)</label>
+                        <div class="color-picker-group">
+                            <input type="color" id="primaryColor" value="#8B4513">
+                            <input type="text" id="primaryColorText" value="#8B4513" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>İkincil Renk (Secondary)</label>
+                        <div class="color-picker-group">
+                            <input type="color" id="secondaryColor" value="#A0522D">
+                            <input type="text" id="secondaryColorText" value="#A0522D" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Arka Plan Rengi</label>
+                        <div class="color-picker-group">
+                            <input type="color" id="bgColor" value="#f8f9fa">
+                            <input type="text" id="bgColorText" value="#f8f9fa" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Yazı Rengi</label>
+                        <div class="color-picker-group">
+                            <input type="color" id="textColor" value="#333333">
+                            <input type="text" id="textColorText" value="#333333" readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-bars"></i>
+                    <h3>Navigasyon Menüsü</h3>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Menü 1</label>
+                        <input type="text" id="navItem1" placeholder="Ana Sayfa">
+                    </div>
+                    <div class="form-group">
+                        <label>Menü 2</label>
+                        <input type="text" id="navItem2" placeholder="Menü">
+                    </div>
+                    <div class="form-group">
+                        <label>Menü 3</label>
+                        <input type="text" id="navItem3" placeholder="Galeri">
+                    </div>
+                    <div class="form-group">
+                        <label>Menü 4</label>
+                        <input type="text" id="navItem4" placeholder="Hakkımızda">
+                    </div>
+                    <div class="form-group">
+                        <label>Menü 5</label>
+                        <input type="text" id="navItem5" placeholder="İletişim">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Contact Section -->
+        <div id="contact" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-phone"></i>
+                    <h3>İletişim Bilgileri</h3>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Telefon</label>
+                        <input type="tel" id="phone" placeholder="0332 353 43 96">
+                    </div>
+                    <div class="form-group">
+                        <label>E-posta</label>
+                        <input type="email" id="email" placeholder="piskin.thr@gmail.com">
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Adres</label>
+                        <textarea id="address" placeholder="Tam adres bilgisi"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Hafta İçi Çalışma Saatleri</label>
+                        <input type="text" id="weekdayHours" placeholder="10:00 - 23:00">
+                    </div>
+                    <div class="form-group">
+                        <label>Hafta Sonu Çalışma Saatleri</label>
+                        <input type="text" id="weekendHours" placeholder="10:00 - 00:00">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-share-alt"></i>
+                    <h3>Sosyal Medya</h3>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Facebook</label>
+                        <input type="url" id="facebook" placeholder="https://facebook.com/...">
+                    </div>
+                    <div class="form-group">
+                        <label>Instagram</label>
+                        <input type="url" id="instagram" placeholder="https://instagram.com/...">
+                    </div>
+                    <div class="form-group">
+                        <label>Twitter</label>
+                        <input type="url" id="twitter" placeholder="https://twitter.com/...">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SEO Section -->
+        <div id="seo" class="content-section">
+            <div class="card">
+                <div class="card-header">
+                    <i class="fas fa-search"></i>
+                    <h3>SEO Ayarları</h3>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label>Site Başlığı (Title)</label>
+                        <input type="text" id="siteTitle" placeholder="Pişkin Restaurant - Lezzetin Adresi">
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Site Açıklaması (Description)</label>
+                        <textarea id="siteDescription" placeholder="Site açıklaması (Google'da görünecek)"></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label>Anahtar Kelimeler (Keywords)</label>
+                        <input type="text" id="siteKeywords" placeholder="restaurant, yemek, lezzet...">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Success Message -->
+    <div class="success-message" id="successMessage">
+        <i class="fas fa-check-circle"></i>
+        <span>Değişiklikler başarıyla kaydedildi!</span>
+    </div>
+    
+    <script>
+        // Section Navigation
+        function showSection(sectionId) {
+            document.querySelectorAll('.content-section').forEach(section => {
+                section.classList.remove('active');
+            });
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            event.target.closest('.menu-item').classList.add('active');
+        }
+        
+        // Color Picker Sync
+        document.querySelectorAll('input[type="color"]').forEach(colorInput => {
+            colorInput.addEventListener('input', function() {
+                const textInput = document.getElementById(this.id + 'Text');
+                if (textInput) textInput.value = this.value;
+            });
+        });
+        
+        // Image Upload Handler
+        function handleImageUpload(inputId, filename) {
+            const input = document.getElementById(inputId);
+            const box = document.getElementById(inputId + 'Box');
+            const file = input.files[0];
+            
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Store in localStorage
+                    localStorage.setItem('image_' + filename, e.target.result);
+                    
+                    // Update UI
+                    box.classList.add('has-image');
+                    box.innerHTML = `
+                        <button class="btn-remove-image" onclick="removeImage('${inputId}', '${filename}')">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <img src="${e.target.result}" class="image-preview" alt="${filename}">
+                        <div class="image-label">${filename}</div>
+                        <div class="image-status" style="color: #27ae60;">✓ Yüklendi</div>
+                        <button class="btn-change-image" onclick="document.getElementById('${inputId}').click()">
+                            Değiştir
+                        </button>
+                        <input type="file" id="${inputId}" accept="image/*" onchange="handleImageUpload('${inputId}', '${filename}')" style="display: none;">
+                    `;
+                    
+                    showSuccess();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // Remove Image
+        function removeImage(inputId, filename) {
+            if (confirm('Bu fotoğrafı silmek istediğinizden emin misiniz?')) {
+                localStorage.removeItem('image_' + filename);
+                location.reload();
+            }
+        }
+        
+        // Save All Changes
+        function saveAllChanges() {
+            const data = {
+                restaurantName: document.getElementById('restaurantName').value,
+                slogan: document.getElementById('slogan').value,
+                heroDescription: document.getElementById('heroDescription').value,
+                mevlanaLeft: document.getElementById('mevlanaLeft').value,
+                mevlanaRight: document.getElementById('mevlanaRight').value,
+                menuTitle: document.getElementById('menuTitle').value,
+                menuSubtitle: document.getElementById('menuSubtitle').value,
+                menuDescription: document.getElementById('menuDescription').value,
+                aboutTitle: document.getElementById('aboutTitle').value,
+                aboutText: document.getElementById('aboutText').value,
+                primaryColor: document.getElementById('primaryColor').value,
+                secondaryColor: document.getElementById('secondaryColor').value,
+                bgColor: document.getElementById('bgColor').value,
+                textColor: document.getElementById('textColor').value,
+                navItem1: document.getElementById('navItem1').value,
+                navItem2: document.getElementById('navItem2').value,
+                navItem3: document.getElementById('navItem3').value,
+                navItem4: document.getElementById('navItem4').value,
+                navItem5: document.getElementById('navItem5').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                address: document.getElementById('address').value,
+                weekdayHours: document.getElementById('weekdayHours').value,
+                weekendHours: document.getElementById('weekendHours').value,
+                facebook: document.getElementById('facebook').value,
+                instagram: document.getElementById('instagram').value,
+                twitter: document.getElementById('twitter').value,
+                siteTitle: document.getElementById('siteTitle').value,
+                siteDescription: document.getElementById('siteDescription').value,
+                siteKeywords: document.getElementById('siteKeywords').value
+            };
+            
+            localStorage.setItem('siteContent', JSON.stringify(data));
+            showSuccess();
+        }
+        
+        // Show Success Message
+        function showSuccess() {
+            const msg = document.getElementById('successMessage');
+            msg.classList.add('show');
+            setTimeout(() => {
+                msg.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Load Existing Data
+        window.onload = function() {
+            const savedContent = localStorage.getItem('siteContent');
+            if (savedContent) {
+                const data = JSON.parse(savedContent);
+                Object.keys(data).forEach(key => {
+                    const element = document.getElementById(key);
+                    if (element) element.value = data[key] || '';
+                });
+            }
+            
+            // Load existing images
+            ['restaurant1', 'restaurant2', 'restaurant3', 'restaurant4', 'restaurant5', 'restaurant6', 'restaurant7'].forEach((name, index) => {
+                const img = localStorage.getItem('image_' + name + '.jpg');
+                if (img) {
+                    const box = document.getElementById('hero' + (index + 1) + 'Box');
+                    box.classList.add('has-image');
+                    box.innerHTML = `
+                        <button class="btn-remove-image" onclick="removeImage('hero${index + 1}', '${name}.jpg')">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <img src="${img}" class="image-preview" alt="${name}.jpg">
+                        <div class="image-label">${name}.jpg</div>
+                        <div class="image-status" style="color: #27ae60;">✓ Yüklendi</div>
+                        <button class="btn-change-image" onclick="document.getElementById('hero${index + 1}').click()">
+                            Değiştir
+                        </button>
+                        <input type="file" id="hero${index + 1}" accept="image/*" onchange="handleImageUpload('hero${index + 1}', '${name}.jpg')" style="display: none;">
+                    `;
+                }
+            });
+            
+            for (let i = 1; i <= 6; i++) {
+                const menuImg = localStorage.getItem('image_menu' + i + '.jpg');
+                if (menuImg) {
+                    const box = document.getElementById('menu' + i + 'Box');
+                    box.classList.add('has-image');
+                    box.innerHTML = `
+                        <button class="btn-remove-image" onclick="removeImage('menu${i}', 'menu${i}.jpg')">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <img src="${menuImg}" class="image-preview" alt="menu${i}.jpg">
+                        <div class="image-label">menu${i}.jpg</div>
+                        <div class="image-status" style="color: #27ae60;">✓ Yüklendi</div>
+                        <button class="btn-change-image" onclick="document.getElementById('menu${i}').click()">
+                            Değiştir
+                        </button>
+                        <input type="file" id="menu${i}" accept="image/*" onchange="handleImageUpload('menu${i}', 'menu${i}.jpg')" style="display: none;">
+                    `;
+                }
+                
+                const galleryImg = localStorage.getItem('image_gallery' + i + '.jpg');
+                if (galleryImg) {
+                    const box = document.getElementById('gallery' + i + 'Box');
+                    box.classList.add('has-image');
+                    box.innerHTML = `
+                        <button class="btn-remove-image" onclick="removeImage('gallery${i}', 'gallery${i}.jpg')">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <img src="${galleryImg}" class="image-preview" alt="gallery${i}.jpg">
+                        <div class="image-label">gallery${i}.jpg</div>
+                        <div class="image-status" style="color: #27ae60;">✓ Yüklendi</div>
+                        <button class="btn-change-image" onclick="document.getElementById('gallery${i}').click()">
+                            Değiştir
+                        </button>
+                        <input type="file" id="gallery${i}" accept="image/*" onchange="handleImageUpload('gallery${i}', 'gallery${i}.jpg')" style="display: none;">
+                    `;
+                }
+            }
+        };
+    </script>
+</body>
+</html>

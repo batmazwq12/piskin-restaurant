@@ -1,0 +1,21 @@
+MENÜ FOTOĞRAFLARI KURULUM REHBERİ
+===================================
+
+Lütfen gönderdiğiniz 7 yemek fotoğrafını aşağıdaki isimlerle bu klasöre kaydedin:
+
+1. menu1.jpg - Kaşarlı Pide (beyaz peynirli pide fotoğrafı)
+2. menu2.jpg - Ciğer Kavurma (taş tabakta ciğer kavurma)
+3. menu3.jpg - Kıymalı Pide (kıymalı pide fotoğrafı)
+4. menu4.jpg - Kuzu Şiş (pilav ve garnitürlü kuzu şiş)
+5. menu5.jpg - Adana Kebap (adana kebap tabağı)
+6. menu6.jpg - Tandır (tandır eti fotoğrafı)
+7. menu7.jpg - Pide (özel pide çeşidi)
+
+ADIMLAR:
+1. Gönderdiğiniz her fotoğrafı sağ tıklayın
+2. "Farklı Kaydet" veya "Save As" seçin
+3. Bu klasöre kaydedin: c:\Users\cresyoon\Desktop\pişkin restaurant\images\
+4. Yukarıdaki isimleri kullanın (menu1.jpg, menu2.jpg, vb.)
+5. Tarayıcıyı yenileyin (F5)
+
+NOT: 7 fotoğraf var ama menüde 6 tane gösteriyoruz. İsterseniz 7 fotoğrafı da gösterebiliriz.

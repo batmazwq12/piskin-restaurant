@@ -1,0 +1,737 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yönetim Paneli - Pişkin Restaurant</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .login-header i {
+            font-size: 3rem;
+            color: #8B4513;
+            margin-bottom: 15px;
+        }
+
+        .login-header h1 {
+            color: #8B4513;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .login-header p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        .input-group label {
+            display: block;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .input-group input:focus {
+            outline: none;
+            border-color: #8B4513;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(139, 69, 19, 0.3);
+        }
+
+        .error-message {
+            background: #ff4444;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            text-align: center;
+        }
+
+        .admin-panel {
+            display: none;
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .panel-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .panel-header h2 {
+            color: #8B4513;
+            font-size: 1.8rem;
+        }
+
+        .logout-btn {
+            padding: 10px 20px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f9f9f9;
+            border-radius: 12px;
+        }
+
+        .section h3 {
+            color: #8B4513;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #333;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .image-upload {
+            border: 2px dashed #8B4513;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .image-upload:hover {
+            background: #f5f5f5;
+        }
+
+        .image-upload input {
+            display: none;
+        }
+
+        .image-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .preview-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+        }
+
+        .preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .preview-item .remove-btn {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: #ff4444;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .save-btn {
+            padding: 14px 30px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .save-btn:hover {
+            background: #218838;
+        }
+
+        .success-message {
+            background: #28a745;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Form -->
+    <div class="login-container" id="loginContainer">
+        <div class="login-header">
+            <i class="fas fa-user-shield"></i>
+            <h1>Yönetim Paneli</h1>
+            <p>Pişkin Restaurant</p>
+        </div>
+        
+        <div class="error-message" id="errorMessage">
+            Hatalı kullanıcı adı veya şifre!
+        </div>
+
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="username">Kullanıcı Adı</label>
+                <input type="text" id="username" required>
+            </div>
+            
+            <div class="input-group">
+                <label for="password">Şifre</label>
+                <input type="password" id="password" required>
+            </div>
+            
+            <button type="submit" class="login-btn">
+                <i class="fas fa-sign-in-alt"></i> Giriş Yap
+            </button>
+        </form>
+    </div>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel" id="adminPanel">
+        <div class="panel-header">
+            <h2><i class="fas fa-cog"></i> Site Yönetimi</h2>
+            <button class="logout-btn" onclick="logout()">
+                <i class="fas fa-sign-out-alt"></i> Çıkış
+            </button>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            Değişiklikler kaydedildi!
+        </div>
+
+        <!-- Slogan Section -->
+        <div class="section">
+            <h3><i class="fas fa-quote-left"></i> Ana Sayfa</h3>
+            <div class="form-group">
+                <label>Restaurant İsmi</label>
+                <input type="text" id="restaurantName" value="Pişkin Restaurant">
+            </div>
+            <div class="form-group">
+                <label>Ana Slogan</label>
+                <input type="text" id="slogan" value="Geleneğin Tadı, Zarafet'in Sofrası">
+            </div>
+            <div class="form-group">
+                <label>Ana Sayfa Açıklama</label>
+                <textarea id="heroDescription">Misafirperverlik ve kaliteli hizmet anlayışı ile Pişkin Restaurant'ta sizleri ağırlamaktan mutluluk duyarız.</textarea>
+            </div>
+        </div>
+
+        <!-- Hero Slider Section -->
+        <div class="section">
+            <h3><i class="fas fa-images"></i> Ana Sayfa Slider Fotoğrafları</h3>
+            <p style="color: #666; margin-bottom: 15px;">Ana sayfada dönen 7 fotoğraf. FileZilla ile images klasörüne yükleyin.</p>
+            <div class="image-preview">
+                <div class="preview-item">
+                    <img src="images/restaurant1.jpg" alt="Slider 1">
+                    <span style="position: absolute; bottom: 5px; left: 5px; background: rgba(0,0,0,0.7); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem;">restaurant1.jpg</span>
+                </div>
+                <div class="preview-item">
+                    <img src="images/restaurant2.jpg" alt="Slider 2">
+                    <span style="position: absolute; bottom: 5px; left: 5px; background: rgba(0,0,0,0.7); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem;">restaurant2.jpg</span>
+                </div>
+                <div class="preview-item">
+                    <img src="images/restaurant3.jpg" alt="Slider 3">
+                    <span style="position: absolute; bottom: 5px; left: 5px; background: rgba(0,0,0,0.7); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem;">restaurant3.jpg</span>
+                </div>
+                <div class="preview-item">
+                    <img src="images/restaurant4.jpg" alt="Slider 4">
+                    <span style="position: absolute; bottom: 5px; left: 5px; background: rgba(0,0,0,0.7); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem;">restaurant4.jpg</span>
+                </div>
+                <div class="preview-item">
+                    <img src="images/restaurant5.jpg" alt="Slider 5">
+                    <span style="position: absolute; bottom: 5px; left: 5px; background: rgba(0,0,0,0.7); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem;">restaurant5.jpg</span>
+                </div>
+                <div class="preview-item">
+                    <img src="images/restaurant6.jpg" alt="Slider 6">
+                    <span style="position: absolute; bottom: 5px; left: 5px; background: rgba(0,0,0,0.7); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem;">restaurant6.jpg</span>
+                </div>
+                <div class="preview-item">
+                    <img src="images/restaurant7.jpg" alt="Slider 7">
+                    <span style="position: absolute; bottom: 5px; left: 5px; background: rgba(0,0,0,0.7); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem;">restaurant7.jpg</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mevlana Quotes Section -->
+        <div class="section">
+            <h3><i class="fas fa-heart"></i> Mevlana Sözleri (Ana Sayfa)</h3>
+            <div class="form-group">
+                <label>Sol Mevlana Sözü (Türkçe)</label>
+                <input type="text" id="mevlanaLeft" value="Sevgi ile pişen yemekler ruhları besler">
+            </div>
+            <div class="form-group">
+                <label>Sağ Mevlana Sözü (Türkçe)</label>
+                <input type="text" id="mevlanaRight" value="Gönül sofrası her daim dolu olsun">
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <div class="section">
+            <h3><i class="fas fa-info-circle"></i> Hakkımızda</h3>
+            <div class="form-group">
+                <label>Hakkımızda Başlık</label>
+                <input type="text" id="aboutTitle" value="Geleneksel Türk Lezzetleri">
+            </div>
+            <div class="form-group">
+                <label>Hakkımızda Açıklama</label>
+                <textarea id="aboutText">Yüzyıllar öncesine dayanan Türk Mutfak Geleneğinin özüne uygun biçimdeki yöresel lezzetlerini, özenli hizmet, güler yüzlü servis, huzurlu bir ortamda Pişkin Restaurant'ta sizlerin beğenisine sunmaktayız.</textarea>
+            </div>
+        </div>
+
+        <!-- Menu Section -->
+        <div class="section">
+            <h3><i class="fas fa-utensils"></i> Menü Başlığı</h3>
+            <div class="form-group">
+                <label>Menü Başlığı</label>
+                <input type="text" id="menuTitle" value="Menü">
+            </div>
+            <div class="form-group">
+                <label>Menü Alt Başlık</label>
+                <input type="text" id="menuSubtitle" value="Geleneksel Türk Lezzetleri">
+            </div>
+            <div class="form-group">
+                <label>Menü Açıklama</label>
+                <textarea id="menuDescription">Yüzyıllar öncesine dayanan Türk Mutfak Geleneğinin özüne uygun biçimdeki yöresel lezzetlerini, özenli hizmet, güler yüzlü servis, huzurlu bir ortamda Pişkin Restaurant'ta sizlerin beğenisine sunmaktayız.</textarea>
+            </div>
+        </div>
+
+        <!-- Menu Photos Section -->
+        <div class="section">
+            <h3><i class="fas fa-camera"></i> Menü Fotoğrafları</h3>
+            <p style="color: #666; margin-bottom: 15px;">Mevcut fotoğrafları değiştirmek için FileZilla ile images klasörüne yükleyin. Dosya isimleri: menu1.jpg, menu2.jpg, menu3.jpg, menu4.jpg, menu5.jpg, menu6.jpg</p>
+            <div class="image-preview">
+                <div class="preview-item">
+                    <img src="images/menu1.jpg" alt="Menu 1">
+                    <span style="position: absolute; bottom: 5px; left: 5px; background: rgba(0,0,0,0.7); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem;">menu1.jpg</span>
+                </div>
+                <div class="preview-item">
+                    <img src="images/menu2.jpg" alt="Menu 2">
+                    <span style="position: absolute; bottom: 5px; left: 5px; background: rgba(0,0,0,0.7); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem;">menu2.jpg</span>
+                </div>
+                <div class="preview-item">
+                    <img src="images/menu3.jpg" alt="Menu 3">
+                    <span style="position: absolute; bottom: 5px; left: 5px; background: rgba(0,0,0,0.7); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem;">menu3.jpg</span>
+                </div>
+                <div class="preview-item">
+                    <img src="images/menu4.jpg" alt="Menu 4">
+                    <span style="position: absolute; bottom: 5px; left: 5px; background: rgba(0,0,0,0.7); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem;">menu4.jpg</span>
+                </div>
+                <div class="preview-item">
+                    <img src="images/menu5.jpg" alt="Menu 5">
+                    <span style="position: absolute; bottom: 5px; left: 5px; background: rgba(0,0,0,0.7); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem;">menu5.jpg</span>
+                </div>
+                <div class="preview-item">
+                    <img src="images/menu6.jpg" alt="Menu 6">
+                    <span style="position: absolute; bottom: 5px; left: 5px; background: rgba(0,0,0,0.7); color: white; padding: 5px 10px; border-radius: 5px; font-size: 0.8rem;">menu6.jpg</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gallery Section -->
+        <div class="section">
+            <h3><i class="fas fa-images"></i> Galeri Başlığı</h3>
+            <div class="form-group">
+                <label>Galeri Başlığı</label>
+                <input type="text" id="galleryTitle" value="Galeri">
+            </div>
+            <div class="form-group">
+                <label>Galeri Açıklama</label>
+                <textarea id="galleryDescription">Restoranımızdan görüntüler</textarea>
+            </div>
+            <p style="color: #666; margin-top: 15px;">Galeri fotoğrafları: gallery1.jpg - gallery6.jpg (FileZilla ile değiştirin)</p>
+        </div>
+
+        <!-- Social Media Section -->
+        <div class="section">
+            <h3><i class="fas fa-share-alt"></i> Sosyal Medya</h3>
+            <div class="form-group">
+                <label>Facebook URL</label>
+                <input type="url" id="facebook" placeholder="https://facebook.com/...">
+            </div>
+            <div class="form-group">
+                <label>Instagram URL</label>
+                <input type="url" id="instagram" placeholder="https://instagram.com/...">
+            </div>
+            <div class="form-group">
+                <label>Twitter URL</label>
+                <input type="url" id="twitter" placeholder="https://twitter.com/...">
+            </div>
+        </div>
+
+        <!-- Working Hours Section -->
+        <div class="section">
+            <h3><i class="fas fa-clock"></i> Çalışma Saatleri</h3>
+            <div class="form-group">
+                <label>Hafta İçi</label>
+                <input type="text" id="weekdayHours" value="09:00 - 23:00">
+            </div>
+            <div class="form-group">
+                <label>Hafta Sonu</label>
+                <input type="text" id="weekendHours" value="10:00 - 00:00">
+            </div>
+        </div>
+
+        <!-- SEO Section -->
+        <div class="section">
+            <h3><i class="fas fa-search"></i> SEO Ayarları</h3>
+            <div class="form-group">
+                <label>Site Başlığı (Tarayıcı Sekmesi)</label>
+                <input type="text" id="siteTitle" value="Pişkin Restaurant | &quot;Geleneğin Tadı, Zarafet'in Sofrası&quot;">
+            </div>
+            <div class="form-group">
+                <label>Site Açıklaması (Meta Description)</label>
+                <textarea id="siteDescription">Geleneksel Türk mutfağının en lezzetli yemekleri Pişkin Restaurant'ta. Konya'nın kalbi, lezzet durağı.</textarea>
+            </div>
+            <div class="form-group">
+                <label>Anahtar Kelimeler (virgülle ayırın)</label>
+                <input type="text" id="siteKeywords" value="restaurant, türk mutfağı, konya restaurant, kebap, pide">
+            </div>
+        </div>
+
+        <!-- Theme Colors Section -->
+        <div class="section">
+            <h3><i class="fas fa-palette"></i> Tema Renkleri</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div class="form-group">
+                    <label>Ana Renk (Başlıklar, Butonlar)</label>
+                    <input type="color" id="primaryColor" value="#8B4513" style="width: 100%; height: 50px; cursor: pointer;">
+                </div>
+                <div class="form-group">
+                    <label>İkincil Renk (Hover, Vurgular)</label>
+                    <input type="color" id="secondaryColor" value="#A0522D" style="width: 100%; height: 50px; cursor: pointer;">
+                </div>
+                <div class="form-group">
+                    <label>Arkaplan Rengi</label>
+                    <input type="color" id="bgColor" value="#f8f4e6" style="width: 100%; height: 50px; cursor: pointer;">
+                </div>
+                <div class="form-group">
+                    <label>Metin Rengi</label>
+                    <input type="color" id="textColor" value="#333333" style="width: 100%; height: 50px; cursor: pointer;">
+                </div>
+            </div>
+            <button onclick="resetColors()" style="margin-top: 15px; padding: 10px 20px; background: #666; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                <i class="fas fa-undo"></i> Renkleri Sıfırla
+            </button>
+        </div>
+
+        <!-- Navigation Menu Section -->
+        <div class="section">
+            <h3><i class="fas fa-bars"></i> Navigasyon Menüsü</h3>
+            <div class="form-group">
+                <label>Menü Öğesi 1</label>
+                <input type="text" id="navItem1" value="ANA SAYFA">
+            </div>
+            <div class="form-group">
+                <label>Menü Öğesi 2</label>
+                <input type="text" id="navItem2" value="HAKKIMIZDA">
+            </div>
+            <div class="form-group">
+                <label>Menü Öğesi 3</label>
+                <input type="text" id="navItem3" value="MENÜ">
+            </div>
+            <div class="form-group">
+                <label>Menü Öğesi 4</label>
+                <input type="text" id="navItem4" value="GALERİ">
+            </div>
+            <div class="form-group">
+                <label>Menü Öğesi 5</label>
+                <input type="text" id="navItem5" value="İLETİŞİM">
+            </div>
+        </div>
+
+        <!-- Footer Section -->
+        <div class="section">
+            <h3><i class="fas fa-copyright"></i> Footer (Alt Bilgi)</h3>
+            <div class="form-group">
+                <label>Copyright Metni</label>
+                <input type="text" id="copyrightText" value="© 2025 Pişkin Restaurant. Tüm hakları saklıdır.">
+            </div>
+            <div class="form-group">
+                <label>Footer Açıklama</label>
+                <textarea id="footerDescription">Geleneksel Türk mutfağının eşsiz lezzetleri ile hizmetinizdeyiz.</textarea>
+            </div>
+        </div>
+
+        <!-- Contact Form Section -->
+        <div class="section">
+            <h3><i class="fas fa-envelope"></i> İletişim Formu Ayarları</h3>
+            <div class="form-group">
+                <label>Form Başlığı</label>
+                <input type="text" id="contactFormTitle" value="Bize Ulaşın">
+            </div>
+            <div class="form-group">
+                <label>Form Alt Yazı</label>
+                <input type="text" id="contactFormSubtitle" value="Sorularınız için bizimle iletişime geçin">
+            </div>
+            <div class="form-group">
+                <label>Form Alıcı E-posta</label>
+                <input type="email" id="contactFormEmail" value="piskin.thr@gmail.com">
+            </div>
+        </div>
+
+        <!-- Contact Section -->
+        <div class="section">
+            <h3><i class="fas fa-phone"></i> İletişim Bilgileri</h3>
+            <div class="form-group">
+                <label>Telefon</label>
+                <input type="text" id="phone" value="0332 353 43 96">
+            </div>
+            <div class="form-group">
+                <label>E-posta</label>
+                <input type="email" id="email" value="piskin.thr@gmail.com">
+            </div>
+            <div class="form-group">
+                <label>Adres</label>
+                <textarea id="address">Konya, Türkiye</textarea>
+            </div>
+        </div>
+
+        <button class="save-btn" onclick="saveChanges()">
+            <i class="fas fa-save"></i> Değişiklikleri Kaydet
+        </button>
+    </div>
+
+    <script>
+        // Giriş bilgileri (GÜVENLİK: Gerçek kullanımda backend kullanın!)
+        const ADMIN_USER = 'piskin';
+        const ADMIN_PASS = 'piskin2025';
+
+        // Login Form
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === ADMIN_USER && password === ADMIN_PASS) {
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                document.getElementById('errorMessage').style.display = 'none';
+            } else {
+                document.getElementById('errorMessage').style.display = 'block';
+            }
+        });
+
+        // Logout
+        function logout() {
+            document.getElementById('adminPanel').style.display = 'none';
+            document.getElementById('loginContainer').style.display = 'block';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        }
+
+        // Save Changes
+        function saveChanges() {
+            const data = {
+                restaurantName: document.getElementById('restaurantName').value,
+                slogan: document.getElementById('slogan').value,
+                heroDescription: document.getElementById('heroDescription').value,
+                mevlanaLeft: document.getElementById('mevlanaLeft').value,
+                mevlanaRight: document.getElementById('mevlanaRight').value,
+                aboutTitle: document.getElementById('aboutTitle').value,
+                aboutText: document.getElementById('aboutText').value,
+                menuTitle: document.getElementById('menuTitle').value,
+                menuSubtitle: document.getElementById('menuSubtitle').value,
+                menuDescription: document.getElementById('menuDescription').value,
+                galleryTitle: document.getElementById('galleryTitle').value,
+                galleryDescription: document.getElementById('galleryDescription').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                address: document.getElementById('address').value,
+                facebook: document.getElementById('facebook').value,
+                instagram: document.getElementById('instagram').value,
+                twitter: document.getElementById('twitter').value,
+                weekdayHours: document.getElementById('weekdayHours').value,
+                weekendHours: document.getElementById('weekendHours').value,
+                siteTitle: document.getElementById('siteTitle').value,
+                siteDescription: document.getElementById('siteDescription').value,
+                siteKeywords: document.getElementById('siteKeywords').value,
+                primaryColor: document.getElementById('primaryColor').value,
+                secondaryColor: document.getElementById('secondaryColor').value,
+                bgColor: document.getElementById('bgColor').value,
+                textColor: document.getElementById('textColor').value,
+                navItem1: document.getElementById('navItem1').value,
+                navItem2: document.getElementById('navItem2').value,
+                navItem3: document.getElementById('navItem3').value,
+                navItem4: document.getElementById('navItem4').value,
+                navItem5: document.getElementById('navItem5').value,
+                copyrightText: document.getElementById('copyrightText').value,
+                footerDescription: document.getElementById('footerDescription').value,
+                contactFormTitle: document.getElementById('contactFormTitle').value,
+                contactFormSubtitle: document.getElementById('contactFormSubtitle').value,
+                contactFormEmail: document.getElementById('contactFormEmail').value
+            };
+
+            // LocalStorage'a kaydet
+            localStorage.setItem('siteContent', JSON.stringify(data));
+
+            // Başarı mesajı göster
+            const successMsg = document.getElementById('successMessage');
+            successMsg.style.display = 'block';
+            
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 3000);
+
+            console.log('Tüm site içeriği güncellendi!');
+        }
+
+        // Reset Colors
+        function resetColors() {
+            document.getElementById('primaryColor').value = '#8B4513';
+            document.getElementById('secondaryColor').value = '#A0522D';
+            document.getElementById('bgColor').value = '#f8f4e6';
+            document.getElementById('textColor').value = '#333333';
+        }
+
+        // Sayfa yüklendiğinde kayıtlı içeriği yükle
+        window.onload = function() {
+            const savedContent = localStorage.getItem('siteContent');
+            if (savedContent) {
+                const data = JSON.parse(savedContent);
+                if(document.getElementById('restaurantName')) document.getElementById('restaurantName').value = data.restaurantName || 'Pişkin Restaurant';
+                if(document.getElementById('slogan')) document.getElementById('slogan').value = data.slogan || 'Geleneğin Tadı, Zarafet\'in Sofrası';
+                if(document.getElementById('heroDescription')) document.getElementById('heroDescription').value = data.heroDescription || '';
+                if(document.getElementById('mevlanaLeft')) document.getElementById('mevlanaLeft').value = data.mevlanaLeft || '';
+                if(document.getElementById('mevlanaRight')) document.getElementById('mevlanaRight').value = data.mevlanaRight || '';
+                if(document.getElementById('aboutTitle')) document.getElementById('aboutTitle').value = data.aboutTitle || 'Geleneksel Türk Lezzetleri';
+                if(document.getElementById('aboutText')) document.getElementById('aboutText').value = data.aboutText || '';
+                if(document.getElementById('menuTitle')) document.getElementById('menuTitle').value = data.menuTitle || 'Menü';
+                if(document.getElementById('menuSubtitle')) document.getElementById('menuSubtitle').value = data.menuSubtitle || 'Geleneksel Türk Lezzetleri';
+                if(document.getElementById('menuDescription')) document.getElementById('menuDescription').value = data.menuDescription || '';
+                if(document.getElementById('galleryTitle')) document.getElementById('galleryTitle').value = data.galleryTitle || 'Galeri';
+                if(document.getElementById('galleryDescription')) document.getElementById('galleryDescription').value = data.galleryDescription || '';
+                if(document.getElementById('phone')) document.getElementById('phone').value = data.phone || '';
+                if(document.getElementById('email')) document.getElementById('email').value = data.email || '';
+                if(document.getElementById('address')) document.getElementById('address').value = data.address || '';
+                if(document.getElementById('facebook')) document.getElementById('facebook').value = data.facebook || '';
+                if(document.getElementById('instagram')) document.getElementById('instagram').value = data.instagram || '';
+                if(document.getElementById('twitter')) document.getElementById('twitter').value = data.twitter || '';
+                if(document.getElementById('weekdayHours')) document.getElementById('weekdayHours').value = data.weekdayHours || '09:00 - 23:00';
+                if(document.getElementById('weekendHours')) document.getElementById('weekendHours').value = data.weekendHours || '10:00 - 00:00';
+                if(document.getElementById('siteTitle')) document.getElementById('siteTitle').value = data.siteTitle || 'Pişkin Restaurant';
+                if(document.getElementById('siteDescription')) document.getElementById('siteDescription').value = data.siteDescription || '';
+                if(document.getElementById('siteKeywords')) document.getElementById('siteKeywords').value = data.siteKeywords || '';
+                if(document.getElementById('primaryColor')) document.getElementById('primaryColor').value = data.primaryColor || '#8B4513';
+                if(document.getElementById('secondaryColor')) document.getElementById('secondaryColor').value = data.secondaryColor || '#A0522D';
+                if(document.getElementById('bgColor')) document.getElementById('bgColor').value = data.bgColor || '#f8f4e6';
+                if(document.getElementById('textColor')) document.getElementById('textColor').value = data.textColor || '#333333';
+                if(document.getElementById('navItem1')) document.getElementById('navItem1').value = data.navItem1 || 'ANA SAYFA';
+                if(document.getElementById('navItem2')) document.getElementById('navItem2').value = data.navItem2 || 'HAKKIMIZDA';
+                if(document.getElementById('navItem3')) document.getElementById('navItem3').value = data.navItem3 || 'MENÜ';
+                if(document.getElementById('navItem4')) document.getElementById('navItem4').value = data.navItem4 || 'GALERİ';
+                if(document.getElementById('navItem5')) document.getElementById('navItem5').value = data.navItem5 || 'İLETİŞİM';
+                if(document.getElementById('copyrightText')) document.getElementById('copyrightText').value = data.copyrightText || '';
+                if(document.getElementById('footerDescription')) document.getElementById('footerDescription').value = data.footerDescription || '';
+                if(document.getElementById('contactFormTitle')) document.getElementById('contactFormTitle').value = data.contactFormTitle || 'Bize Ulaşın';
+                if(document.getElementById('contactFormSubtitle')) document.getElementById('contactFormSubtitle').value = data.contactFormSubtitle || '';
+                if(document.getElementById('contactFormEmail')) document.getElementById('contactFormEmail').value = data.contactFormEmail || '';
+            }
+        };
+    </script>
+</body>
+</html>

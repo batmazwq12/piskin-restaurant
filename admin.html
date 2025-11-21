@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pişkin Restaurant Admin Panel</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div class="admin-shell">
+        <aside class="admin-sidebar">
+            <div class="brand">
+                <span class="badge">✦</span>
+                <div>
+                    <h1>Pişkin</h1>
+                    <p>Yönetim Paneli</p>
+                </div>
+            </div>
+            <div class="token-box">
+                <label for="admin-token">Yönetici Anahtarı</label>
+                <input type="password" id="admin-token" placeholder="TOKEN">
+                <button id="btn-save-token">Kaydet</button>
+                <small>Sunucuya kaydetme işlemleri sırasında kullanılır.</small>
+            </div>
+            <nav>
+                <a href="#hero-card">Hero</a>
+                <a href="#about-card">Hikaye</a>
+                <a href="#features-card">Öne Çıkanlar</a>
+                <a href="#menu-card">Menü</a>
+                <a href="#gallery-card">Galeri</a>
+                <a href="#cta-card">CTA</a>
+                <a href="#contact-card">İletişim</a>
+                <a href="#advanced-card">Gelişmiş JSON</a>
+            </nav>
+        </aside>
+        <main class="admin-content">
+            <header class="admin-header">
+                <div>
+                    <h2>Sitedeki İçeriği Düzenle</h2>
+                    <p>Değişiklikleri kaydettikten sonra site otomatik güncellenir.</p>
+                </div>
+                <div class="header-actions">
+                    <button id="btn-refresh" class="ghost"><i class="fas fa-rotate"></i> Verileri Yenile</button>
+                    <button id="btn-save" class="primary"><i class="fas fa-save"></i> Değişiklikleri Kaydet</button>
+                </div>
+            </header>
+
+            <section id="hero-card" class="admin-card">
+                <h3>Hero Alanı</h3>
+                <div class="grid-2">
+                    <label>Üst Başlık
+                        <input type="text" data-bind="hero.subtitle">
+                    </label>
+                    <label>Başlık Satır 1
+                        <input type="text" data-bind="hero.titleLine1">
+                    </label>
+                    <label>Başlık Satır 2
+                        <input type="text" data-bind="hero.titleLine2">
+                    </label>
+                </div>
+                <label>Açıklama
+                    <textarea rows="3" data-bind="hero.description"></textarea>
+                </label>
+            </section>
+
+            <section id="about-card" class="admin-card">
+                <h3>Hikaye Bölümü</h3>
+                <div class="grid-2">
+                    <label>Etiket
+                        <input type="text" data-bind="about.label">
+                    </label>
+                    <label>Başlık Satır 1
+                        <input type="text" data-bind="about.titleLine1">
+                    </label>
+                    <label>Başlık Vurgusu
+                        <input type="text" data-bind="about.titleHighlight">
+                    </label>
+                    <label>Kısa Vurgu
+                        <input type="text" data-bind="about.lead">
+                    </label>
+                    <label>Tecrübe (Yıl)
+                        <input type="number" data-bind="about.experienceYears">
+                    </label>
+                </div>
+                <label>Detay Metni
+                    <textarea rows="4" data-bind="about.text"></textarea>
+                </label>
+            </section>
+
+            <section id="features-card" class="admin-card">
+                <div class="section-header">
+                    <h3>Öne Çıkan Özellikler</h3>
+                    <button class="ghost" data-action="add-feature"><i class="fas fa-plus"></i> Özellik Ekle</button>
+                </div>
+                <div id="features-list" class="repeatable"></div>
+            </section>
+
+            <section id="menu-card" class="admin-card">
+                <div class="section-header">
+                    <h3>Menü Öğeleri</h3>
+                    <button class="ghost" data-action="add-menu"><i class="fas fa-plus"></i> Menü Ekle</button>
+                </div>
+                <div id="menu-list" class="repeatable"></div>
+            </section>
+
+            <section id="gallery-card" class="admin-card">
+                <div class="section-header">
+                    <h3>Galeri</h3>
+                    <button class="ghost" data-action="add-gallery"><i class="fas fa-plus"></i> Görsel Ekle</button>
+                </div>
+                <div id="gallery-list" class="repeatable"></div>
+            </section>
+
+            <section id="cta-card" class="admin-card">
+                <h3>CTA / Mesaj Alanı</h3>
+                <label>Başlık
+                    <input type="text" data-bind="cta.headline">
+                </label>
+                <label>Açıklama
+                    <textarea rows="3" data-bind="cta.description"></textarea>
+                </label>
+                <div class="grid-2">
+                    <label>Buton 1
+                        <input type="text" data-bind="cta.primary">
+                    </label>
+                    <label>Buton 2
+                        <input type="text" data-bind="cta.secondary">
+                    </label>
+                </div>
+            </section>
+
+            <section id="contact-card" class="admin-card">
+                <h3>İletişim Bilgileri</h3>
+                <label>Adres
+                    <textarea rows="2" data-bind="contact.address"></textarea>
+                </label>
+                <div class="grid-2">
+                    <label>Telefon
+                        <input type="text" data-bind="contact.phone">
+                    </label>
+                    <label>E-posta
+                        <input type="email" data-bind="contact.email">
+                    </label>
+                </div>
+                <label>Çalışma Saatleri
+                    <textarea rows="2" data-bind="contact.hours"></textarea>
+                </label>
+                <div class="section-header">
+                    <h4>Sosyal Bağlantılar</h4>
+                    <button class="ghost" data-action="add-social"><i class="fas fa-plus"></i> Bağlantı Ekle</button>
+                </div>
+                <div id="social-list" class="repeatable"></div>
+            </section>
+
+            <section id="advanced-card" class="admin-card">
+                <h3>Gelişmiş JSON Düzenleyici</h3>
+                <p>İstediğiniz tüm alanları manuel olarak güncellemek için JSON verisini düzenleyebilirsiniz.</p>
+                <textarea id="raw-json" rows="12"></textarea>
+                <button id="btn-sync-json" class="ghost">Form Alanlarına Aktar</button>
+            </section>
+        </main>
+    </div>
+
+    <template id="feature-template">
+        <div class="repeat-item">
+            <div class="grid-3">
+                <label>Icon
+                    <input type="text" data-field="icon" placeholder="fas fa-star">
+                </label>
+                <label>Başlık
+                    <input type="text" data-field="title">
+                </label>
+                <label>Açıklama
+                    <input type="text" data-field="description">
+                </label>
+            </div>
+            <button class="remove" data-action="remove-item"><i class="fas fa-trash"></i></button>
+        </div>
+    </template>
+
+    <template id="menu-template">
+        <div class="repeat-item">
+            <div class="grid-4">
+                <label>Etiket
+                    <input type="text" data-field="label">
+                </label>
+                <label>Başlık
+                    <input type="text" data-field="title">
+                </label>
+                <label>Fiyat
+                    <input type="text" data-field="price">
+                </label>
+                <label>Görsel Yolu
+                    <input type="text" data-field="image" placeholder="images/menu1.jpg">
+                </label>
+            </div>
+            <label>Açıklama
+                <input type="text" data-field="description">
+            </label>
+            <button class="remove" data-action="remove-item"><i class="fas fa-trash"></i></button>
+        </div>
+    </template>
+
+    <template id="gallery-template">
+        <div class="repeat-item">
+            <div class="grid-3">
+                <label>Görsel
+                    <input type="text" data-field="image" placeholder="images/gallery1.jpg">
+                </label>
+                <label>Alt Metin
+                    <input type="text" data-field="alt">
+                </label>
+                <label>Yüksek Blok mu?
+                    <select data-field="tall">
+                        <option value="false">Hayır</option>
+                        <option value="true">Evet</option>
+                    </select>
+                </label>
+            </div>
+            <button class="remove" data-action="remove-item"><i class="fas fa-trash"></i></button>
+        </div>
+    </template>
+
+    <template id="social-template">
+        <div class="repeat-item">
+            <div class="grid-2">
+                <label>Platform
+                    <input type="text" data-field="platform" placeholder="instagram">
+                </label>
+                <label>URL
+                    <input type="text" data-field="url">
+                </label>
+            </div>
+            <button class="remove" data-action="remove-item"><i class="fas fa-trash"></i></button>
+        </div>
+    </template>
+
+    <script src="admin.js"></script>
+</body>
+</html>

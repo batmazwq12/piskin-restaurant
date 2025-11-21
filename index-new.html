@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pişkin Restaurant - Lezzetin ve Zarafetin Buluşma Noktası</title>
+    <link rel="stylesheet" href="styles-new.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Modern Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h1>Pişkin</h1>
+                <span>Restaurant</span>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link active">Ana Sayfa</a></li>
+                <li><a href="#about" class="nav-link">Hakkımızda</a></li>
+                <li><a href="#menu" class="nav-link">Menü</a></li>
+                <li><a href="#gallery" class="nav-link">Galeri</a></li>
+                <li><a href="#contact" class="nav-link">İletişim</a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <a href="tel:03323534396" class="btn-reservation">
+                    <i class="fas fa-phone-alt"></i>
+                    <span>Rezervasyon</span>
+                </a>
+            </div>
+            
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-slider">
+            <div class="slide active">
+                <img src="images/restaurant1.jpg" alt="Pişkin Restaurant">
+                <div class="slide-overlay"></div>
+            </div>
+            <div class="slide">
+                <img src="images/restaurant2.jpg" alt="Pişkin Restaurant">
+                <div class="slide-overlay"></div>
+            </div>
+            <div class="slide">
+                <img src="images/restaurant3.jpg" alt="Pişkin Restaurant">
+                <div class="slide-overlay"></div>
+            </div>
+            <div class="slide">
+                <img src="images/restaurant4.jpg" alt="Pişkin Restaurant">
+                <div class="slide-overlay"></div>
+            </div>
+            <div class="slide">
+                <img src="images/restaurant5.jpg" alt="Pişkin Restaurant">
+                <div class="slide-overlay"></div>
+            </div>
+            <div class="slide">
+                <img src="images/restaurant6.jpg" alt="Pişkin Restaurant">
+                <div class="slide-overlay"></div>
+            </div>
+            <div class="slide">
+                <img src="images/restaurant7.jpg" alt="Pişkin Restaurant">
+                <div class="slide-overlay"></div>
+            </div>
+        </div>
+        
+        <div class="hero-content">
+            <div class="hero-text">
+                <span class="hero-subtitle" data-aos="fade-up">Hoş Geldiniz</span>
+                <h1 class="hero-title" data-aos="fade-up" data-aos-delay="100">
+                    Geleneğin Tadı<br>
+                    <span class="gradient-text">Zarafetin Sofrası</span>
+                </h1>
+                <p class="hero-description" data-aos="fade-up" data-aos-delay="200">
+                    Osmanlı mutfağının zengin lezzetlerini modern dokunuşlarla buluşturuyoruz
+                </p>
+                <div class="hero-buttons" data-aos="fade-up" data-aos-delay="300">
+                    <a href="#menu" class="btn btn-primary">
+                        <span>Menüyü İncele</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="#contact" class="btn btn-secondary">
+                        <i class="fas fa-phone"></i>
+                        <span>Rezervasyon Yap</span>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="mevlana-quotes">
+                <div class="quote left-quote" data-aos="fade-right" data-aos-delay="400">
+                    <i class="fas fa-quote-left"></i>
+                    <p>"Sevgi ile pişen yemekler ruhları besler"</p>
+                    <span>- Mevlana</span>
+                </div>
+                <div class="quote right-quote" data-aos="fade-left" data-aos-delay="400">
+                    <i class="fas fa-quote-right"></i>
+                    <p>"Gönül sofrası her daim dolu olsun"</p>
+                    <span>- Mevlana</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="slider-controls">
+            <button class="slider-btn prev-btn">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            <div class="slider-dots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+                <span class="dot" data-slide="3"></span>
+                <span class="dot" data-slide="4"></span>
+                <span class="dot" data-slide="5"></span>
+                <span class="dot" data-slide="6"></span>
+            </div>
+            <button class="slider-btn next-btn">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+        
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <span>Kaydırın</span>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle">Hikayemiz</span>
+                <h2 class="section-title">Pişkin Restaurant</h2>
+                <div class="title-line"></div>
+            </div>
+            
+            <div class="about-content">
+                <div class="about-image" data-aos="fade-right">
+                    <img src="images/restaurant1.jpg" alt="Pişkin Restaurant">
+                    <div class="about-badge">
+                        <span class="badge-year">EST</span>
+                        <span class="badge-number">2010</span>
+                    </div>
+                </div>
+                
+                <div class="about-text" data-aos="fade-left">
+                    <h3>Lezzet ve Zarafet Bir Arada</h3>
+                    <p class="lead">
+                        Pişkin Restaurant olarak, Türk mutfağının eşsiz lezzetlerini modern ve şık bir atmosferde sizlere sunuyoruz.
+                    </p>
+                    <p>
+                        15 yıllık tecrübemizle, geleneksel tarifleri özenle hazırlayarak, her tabağı bir sanat eserine dönüştürüyoruz. 
+                        Taze malzemeler, usta şeflerimizin ustalığı ve misafirperverliğimizle unutulmaz bir yemek deneyimi yaşatıyoruz.
+                    </p>
+                    
+                    <div class="about-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Geleneksel Lezzetler</h4>
+                                <p>Özenle hazırlanan Türk mutfağı</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Taze Malzemeler</h4>
+                                <p>Günlük temin edilen organik ürünler</p>
+                            </div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="feature-icon">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div class="feature-text">
+                                <h4>Ödüllü Şefler</h4>
+                                <p>Deneyimli ve profesyonel ekip</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="menu-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle">Lezzetlerimiz</span>
+                <h2 class="section-title">Menü Favorilerimiz</h2>
+                <div class="title-line"></div>
+                <p class="section-description">
+                    Özenle seçilmiş en sevilen lezzetlerimizden örnekler
+                </p>
+            </div>
+            
+            <div class="menu-grid">
+                <div class="menu-item" data-aos="fade-up" data-aos-delay="100">
+                    <div class="menu-item-image">
+                        <img src="images/menu1.jpg" alt="Menü 1">
+                        <div class="menu-overlay">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item" data-aos="fade-up" data-aos-delay="150">
+                    <div class="menu-item-image">
+                        <img src="images/menu2.jpg" alt="Menü 2">
+                        <div class="menu-overlay">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item" data-aos="fade-up" data-aos-delay="200">
+                    <div class="menu-item-image">
+                        <img src="images/menu3.jpg" alt="Menü 3">
+                        <div class="menu-overlay">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item" data-aos="fade-up" data-aos-delay="250">
+                    <div class="menu-item-image">
+                        <img src="images/menu4.jpg" alt="Menü 4">
+                        <div class="menu-overlay">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item" data-aos="fade-up" data-aos-delay="300">
+                    <div class="menu-item-image">
+                        <img src="images/menu5.jpg" alt="Menü 5">
+                        <div class="menu-overlay">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="menu-item" data-aos="fade-up" data-aos-delay="350">
+                    <div class="menu-item-image">
+                        <img src="images/menu6.jpg" alt="Menü 6">
+                        <div class="menu-overlay">
+                            <i class="fas fa-search-plus"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle">Atmosfer</span>
+                <h2 class="section-title">Galeri</h2>
+                <div class="title-line"></div>
+            </div>
+            
+            <div class="gallery-grid">
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="100">
+                    <img src="images/gallery1.jpg" alt="Galeri 1">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="150">
+                    <img src="images/gallery2.jpg" alt="Galeri 2">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="200">
+                    <img src="images/gallery3.jpg" alt="Galeri 3">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="250">
+                    <img src="images/gallery4.jpg" alt="Galeri 4">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="images/gallery5.jpg" alt="Galeri 5">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </div>
+                <div class="gallery-item" data-aos="zoom-in" data-aos-delay="350">
+                    <img src="images/gallery6.jpg" alt="Galeri 6">
+                    <div class="gallery-overlay">
+                        <i class="fas fa-expand"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <span class="section-subtitle">Bize Ulaşın</span>
+                <h2 class="section-title">İletişim</h2>
+                <div class="title-line"></div>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info" data-aos="fade-right">
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="info-text">
+                            <h4>Adres</h4>
+                            <p>Atatürk Caddesi No: 123<br>Beyoğlu, İstanbul</p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="info-text">
+                            <h4>Telefon</h4>
+                            <p><a href="tel:03323534396">0332 353 43 96</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="info-text">
+                            <h4>E-posta</h4>
+                            <p><a href="mailto:piskin.thr@gmail.com">piskin.thr@gmail.com</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="info-card">
+                        <div class="info-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="info-text">
+                            <h4>Çalışma Saatleri</h4>
+                            <p>Hafta İçi: 10:00 - 23:00<br>Hafta Sonu: 10:00 - 00:00</p>
+                        </div>
+                    </div>
+                    
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/p/Konya-Pi%C5%9Fkin-Restaurant-100065527988376/" class="social-link" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://www.instagram.com/piskinrestorant/" class="social-link" target="_blank" rel="noopener noreferrer">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="contact-form-wrapper" data-aos="fade-left">
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <input type="text" placeholder="Adınız" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="E-posta" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="tel" placeholder="Telefon">
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Mesajınız" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span>Mesaj Gönder</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h2>Pişkin</h2>
+                    <span>Restaurant</span>
+                </div>
+                <p>&copy; 2024 Pişkin Restaurant. Tüm hakları saklıdır.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script-new.js"></script>
+    <script src="admin-content.js"></script>
+</body>
+</html>

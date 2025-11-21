@@ -1,0 +1,17 @@
+MENÜ FOTOĞRAFLARI KURULUM TALİMATI
+=====================================
+
+Lütfen eklediğiniz 6 yemek fotoğrafını aşağıdaki şekilde yeniden adlandırıp bu klasöre kopyalayın:
+
+1. menu1.jpg - Kaşarlı Pide (beyaz peynirli pide fotoğrafı)
+2. menu2.jpg - Ciğer Kavurma (ciğer kavurma fotoğrafı)
+3. menu3.jpg - Kıymalı Pide (kıymalı pide fotoğrafı)
+4. menu4.jpg - Kuzu Şiş (kuzu şiş kebap fotoğrafı)
+5. menu5.jpg - Adana Kebap (adana kebap fotoğrafı)
+6. menu6.jpg - Özel Kıymalı Pide (özel kıymalı pide fotoğrafı)
+
+Fotoğrafları bu klasöre kopyaladıktan sonra web sitesini yenileyin.
+Menü bölümünde tüm yemekler güzel kartlar halinde görünecektir!
+
+İdeal fotoğraf boyutları: 800x600 piksel veya benzer oran
+Format: JPG

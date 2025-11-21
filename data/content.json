@@ -1,0 +1,92 @@
+{
+  "hero": {
+    "subtitle": "Hoş Geldiniz",
+    "titleLine1": "Geleneğin Tadı",
+    "titleLine2": "Zarafetin Sofrası",
+    "description": "Konya'nın kalbinde, geleneksel tatları modern dokunuşlarla buluşturan seçkin bir deneyim."
+  },
+  "about": {
+    "label": "Hikayemiz",
+    "titleLine1": "Zarafetin ve Lezzetin",
+    "titleHighlight": "Buluşması",
+    "lead": "Yarım asrı aşkın süredir Konya mutfağının ruhunu taşıyan sofralar kuruyoruz.",
+    "text": "Yerel üreticilerden temin ettiğimiz malzemeler, mevsime göre şekillenen menüler ve ustaların elinden çıkan sunumlarla misafirlerimizi ağırlıyoruz.",
+    "experienceYears": 45,
+    "features": [
+      {
+        "icon": "fas fa-tree",
+        "title": "Yerel Ürünler",
+        "description": "Günlük tedarik edilen taze malzemeler"
+      },
+      {
+        "icon": "fas fa-fire",
+        "title": "Taş Fırın",
+        "description": "Odun ateşinde pişen imza tatlar"
+      },
+      {
+        "icon": "fas fa-award",
+        "title": "Şef İmzaları",
+        "description": "Modern tekniklerle yorumlanan klasikler"
+      }
+    ]
+  },
+  "menu": [
+    {
+      "label": "Şefin İmzası",
+      "title": "Konya Peynirli Börek",
+      "image": "images/menu1.jpg"
+    },
+    {
+      "label": "Klasik Konya",
+      "title": "Konya Tiridi",
+      "image": "images/menu2.jpg"
+    },
+    {
+      "label": "Taş Fırından",
+      "title": "Odun Ateşinde Etliekmek",
+      "image": "images/menu3.jpg"
+    },
+    {
+      "label": "Güveçten",
+      "title": "Kuşbaşı Kebab",
+      "image": "images/menu4.jpg"
+    },
+    {
+      "label": "Izgaradan",
+      "title": "Adana Kebap",
+      "image": "images/menu5.jpg"
+    },
+    {
+      "label": "Klasik Konya",
+      "title": "Fırın Kebabı",
+      "image": "images/menu6.jpg"
+    }
+  ],
+  "gallery": [
+    { "image": "images/gallery1.jpg", "alt": "Özel davet masası", "tall": true },
+    { "image": "images/gallery2.jpg", "alt": "Meze seçkisi" },
+    { "image": "images/gallery3.jpg", "alt": "Şef tabağı" },
+    { "image": "images/gallery4.jpg", "alt": "Restoran atmosferi", "tall": true },
+    { "image": "images/gallery5.jpg", "alt": "Tatlı sunumu" },
+    { "image": "images/gallery6.jpg", "alt": "İçecek barı" }
+  ],
+  "cta": {
+    "headline": "Şık Sofralar, Baş Döndüren Tatlar",
+    "description": "Tarihi Konya dokusunun kalbinde, imza menülerimiz ve seçkin servisimizle ağırlanmaya davetlisiniz.",
+    "primary": "Telefonla Rezervasyon",
+    "secondary": "Menüyü İncele"
+  },
+  "contact": {
+    "address": "Pişkin Restoran\nAziziye Mah. Şht. Nazım Bey Cd. No:7\nKaratay / Konya",
+    "phone": "0332 353 43 96",
+    "email": "piskin.thr@gmail.com",
+    "hours": "Pzt-Cum: 10:00 - 23:00\nCmt-Paz: 10:00 - 00:00"
+  },
+  "social": [
+    { "platform": "facebook", "url": "https://www.facebook.com/p/Konya-Pi%C5%9Fkin-Restaurant-100065527988376/" },
+    { "platform": "instagram", "url": "https://www.instagram.com/piskinrestorant/" }
+  ],
+  "map": {
+    "description": "Pişkin Restoran, Aziziye Mahallesi Şehit Nazım Bey Caddesi No:7, 42030 Karatay / Konya"
+  }
+}
