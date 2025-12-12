@@ -56,6 +56,7 @@ function authorize(req, res, next) {
 app.get('/api/content', (req, res) => {
   try {
     const content = readContent();
+    res.set('Cache-Control', 'no-store');
     res.json(content);
   } catch (error) {
     console.error('Error reading content', error);
@@ -64,6 +65,7 @@ app.get('/api/content', (req, res) => {
 });
 // Expose content to the frontend as a small JS payload (used for hero slideshow etc.)
 app.get('/site-content.js', (req, res) => {
+  res.set('Cache-Control', 'no-store');
   res.type('application/javascript');
   res.send('window.__SITE_CONTENT = ' + JSON.stringify(readContent()) + ';');
 });
@@ -72,6 +74,7 @@ app.put('/api/content', authorize, (req, res) => {
   try {
     const payload = req.body;
     writeContent(payload);
+    res.set('Cache-Control', 'no-store');
     res.json({ message: 'Content updated', content: payload });
   } catch (error) {
     console.error('Error writing content', error);
@@ -80,6 +83,7 @@ app.put('/api/content', authorize, (req, res) => {
 });
 
 app.get('/admin', (req, res) => {
+  res.set('Cache-Control', 'no-store');
   res.sendFile(path.join(__dirname, 'admin.html'));
 });
 

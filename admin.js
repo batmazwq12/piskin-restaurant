@@ -236,25 +236,49 @@ function renderSocialList() {
 }
 
 async function saveContent() {
-    const token = state.token || document.getElementById('admin-token').value.trim();
-    if (!token) {
-        alert('Lütfen yönetici anahtarını girin.');
-        return;
+    const saveBtn = document.getElementById('btn-save');
+    if (saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.dataset.saving = '1';
     }
-    const res = await fetch('/api/content', {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify(state.content)
-    });
-    if (!res.ok) {
-        alert('Kaydetme başarısız: ' + (await res.text()));
-        return;
+
+    try {
+        const token = state.token || document.getElementById('admin-token').value.trim();
+        if (!token) {
+            alert('Lütfen yönetici anahtarını girin.');
+            return;
+        }
+        if (!state.content) {
+            alert('İçerik yüklenmedi. Önce “Verileri Yenile” yap.');
+            return;
+        }
+
+        const res = await fetch('/api/content', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+                'Cache-Control': 'no-store'
+            },
+            body: JSON.stringify(state.content)
+        });
+
+        if (!res.ok) {
+            const text = await res.text().catch(() => '');
+            alert('Kaydetme başarısız.\n\nDurum: ' + res.status + '\n' + (text || ''));
+            return;
+        }
+
+        alert('İçerik kaydedildi.');
+        document.getElementById('raw-json').value = JSON.stringify(state.content, null, 2);
+    } catch (err) {
+        alert('Kaydetme sırasında hata: ' + (err?.message || err));
+    } finally {
+        if (saveBtn) {
+            saveBtn.disabled = false;
+            delete saveBtn.dataset.saving;
+        }
     }
-    alert('İçerik kaydedildi.');
-    document.getElementById('raw-json').value = JSON.stringify(state.content, null, 2);
 }
 
 function attachEvents() {
