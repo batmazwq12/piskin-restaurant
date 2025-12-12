@@ -46,7 +46,25 @@ function writeContent(payload) {
 
 function authorize(req, res, next) {
   const header = req.headers.authorization || '';
-  const token = header.startsWith('Bearer ') ? header.slice(7) : null;
+  const raw = header.startsWith('Bearer ') ? header.slice(7) : null;
+
+  // Support both plain tokens and encoded tokens sent as: b64.<base64url>
+  const decodeToken = (val) => {
+    if (!val) return null;
+    if (val.startsWith('b64.')) {
+      const b64url = val.slice(4);
+      const b64 = b64url.replace(/-/g, '+').replace(/_/g, '/');
+      const padded = b64 + '==='.slice((b64.length + 3) % 4);
+      try {
+        return Buffer.from(padded, 'base64').toString('utf8');
+      } catch {
+        return null;
+      }
+    }
+    return val;
+  };
+
+  const token = decodeToken(raw);
   if (!ADMIN_TOKEN || token !== ADMIN_TOKEN) {
     return res.status(401).json({ message: 'Unauthorized' });
   }

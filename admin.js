@@ -3,6 +3,24 @@ const state = {
     token: localStorage.getItem('admin-token') || ''
 };
 
+// Some browsers reject non ISO-8859-1 characters in request headers.
+// To keep admin auth robust even if the user pastes special characters,
+// we encode the token into a safe form for transport.
+function normalizeToken(raw) {
+    return String(raw || '').trim();
+}
+
+function encodeTokenForHeader(token) {
+    const t = normalizeToken(token);
+    if (!t) return '';
+    const bytes = new TextEncoder().encode(t);
+    let bin = '';
+    bytes.forEach(b => { bin += String.fromCharCode(b); });
+    const b64 = btoa(bin);
+    // Convert to base64url without padding
+    return 'b64.' + b64.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+}
+
 const bindInputs = () => document.querySelectorAll('[data-bind]');
 
 const getVal = (path) => path.split('.').reduce((acc, key) => (acc ? acc[key] : undefined), state.content || {});
@@ -243,7 +261,7 @@ async function saveContent() {
     }
 
     try {
-        const token = state.token || document.getElementById('admin-token').value.trim();
+        const token = state.token || document.getElementById('admin-token').value;
         if (!token) {
             alert('Lütfen yönetici anahtarını girin.');
             return;
@@ -257,7 +275,7 @@ async function saveContent() {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`,
+                'Authorization': `Bearer ${encodeTokenForHeader(token)}`,
                 'Cache-Control': 'no-store'
             },
             body: JSON.stringify(state.content)
