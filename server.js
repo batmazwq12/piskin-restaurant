@@ -4,6 +4,25 @@ const express = require('express');
 const cors = require('cors');
 require('dotenv').config();
 
+const multer = require('multer');
+const uploadDir = path.join(__dirname, 'images');
+if (!fs.existsSync(uploadDir)) {
+  fs.mkdirSync(uploadDir);
+}
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, uploadDir);
+  },
+  filename: (req, file, cb) => {
+    // Benzersiz dosya ismi oluştur
+    const ext = path.extname(file.originalname);
+    const base = path.basename(file.originalname, ext);
+    const unique = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, base + '-' + unique + ext);
+  }
+});
+const upload = multer({ storage });
+
 const app = express();
 const PORT = process.env.PORT || 5500;
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN;
@@ -43,6 +62,11 @@ app.get('/api/content', (req, res) => {
     res.status(500).json({ message: 'Unable to load content' });
   }
 });
+// Expose content to the frontend as a small JS payload (used for hero slideshow etc.)
+app.get('/site-content.js', (req, res) => {
+  res.type('application/javascript');
+  res.send('window.__SITE_CONTENT = ' + JSON.stringify(readContent()) + ';');
+});
 
 app.put('/api/content', authorize, (req, res) => {
   try {
@@ -60,6 +84,16 @@ app.get('/admin', (req, res) => {
 });
 
 app.use(express.static(path.join(__dirname)));
+
+// Görsel yükleme endpointi
+app.post('/api/upload', upload.single('image'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).json({ message: 'Dosya yüklenemedi' });
+  }
+  // Yüklenen dosyanın yolunu döndür
+  const filePath = 'images/' + req.file.filename;
+  res.json({ filePath });
+});
 
 app.use((req, res, next) => {
   if (

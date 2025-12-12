@@ -62,6 +62,12 @@
                 <label>Açıklama
                     <textarea rows="3" data-bind="hero.description"></textarea>
                 </label>
+
+                <div class="section-header" style="margin-top:16px;">
+                    <h4>Hero Görselleri (Slider)</h4>
+                    <button class="ghost" data-action="add-hero-image"><i class="fas fa-plus"></i> Görsel Ekle</button>
+                </div>
+                <div id="hero-images-list" class="repeatable"></div>
             </section>
 
             <section id="about-card" class="admin-card">
@@ -191,8 +197,10 @@
                 <label>Fiyat
                     <input type="text" data-field="price">
                 </label>
-                <label>Görsel Yolu
-                    <input type="text" data-field="image" placeholder="images/menu1.jpg">
+                <label>Görsel Yükle
+                    <input type="file" accept="image/*" data-field="image-upload" style="display:block;">
+                    <img data-field="image-preview" src="" alt="Önizleme" style="max-width:80px;max-height:80px;display:none;margin-top:4px;" />
+                    <input type="hidden" data-field="image">
                 </label>
             </div>
             <label>Açıklama
@@ -205,8 +213,10 @@
     <template id="gallery-template">
         <div class="repeat-item">
             <div class="grid-3">
-                <label>Görsel
-                    <input type="text" data-field="image" placeholder="images/gallery1.jpg">
+                <label>Görsel Yükle
+                    <input type="file" accept="image/*" data-field="image-upload" style="display:block;">
+                    <img data-field="image-preview" src="" alt="Önizleme" style="max-width:80px;max-height:80px;display:none;margin-top:4px;" />
+                    <input type="hidden" data-field="image">
                 </label>
                 <label>Alt Metin
                     <input type="text" data-field="alt">
@@ -216,6 +226,22 @@
                         <option value="false">Hayır</option>
                         <option value="true">Evet</option>
                     </select>
+                </label>
+            </div>
+            <button class="remove" data-action="remove-item"><i class="fas fa-trash"></i></button>
+        </div>
+    </template>
+
+    <template id="hero-image-template">
+        <div class="repeat-item">
+            <div class="grid-2">
+                <label>Görsel Yükle
+                    <input type="file" accept="image/*" data-field="hero-image-upload" style="display:block;">
+                    <img data-field="hero-image-preview" src="" alt="Önizleme" style="max-width:120px;max-height:80px;display:none;margin-top:4px;" />
+                    <input type="hidden" data-field="hero-image">
+                </label>
+                <label>Görsel Yolu
+                    <input type="text" data-field="hero-image-path" placeholder="images/....jpg">
                 </label>
             </div>
             <button class="remove" data-action="remove-item"><i class="fas fa-trash"></i></button>

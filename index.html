@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- BUILD: 2025-12-12T00:00Z (cache-bust) -->
+    <meta name="app-build" content="2025-12-12T00:00Z">
     <title>Pişkin Restaurant - Lezzetin ve Zarafetin Buluşma Noktası</title>
-    <link rel="stylesheet" href="styles-premium.css">
+    <link rel="stylesheet" href="styles-premium.css?v=20251212-8">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
@@ -33,7 +35,7 @@
                     <span class="logo-ornament">✦</span>
                 </div>
             </div>
-            
+
             <ul class="nav-menu">
                 <li><a href="#home" class="nav-link active">Ana Sayfa</a></li>
                 <li><a href="#about" class="nav-link">Hikayemiz</a></li>
@@ -61,9 +63,14 @@
     <section id="home" class="hero">
         <div class="hero-slider">
             <div class="slide active">
-                <img src="images/restaurant5.jpg" alt="Pişkin Restaurant">
+                <img src="images/restaurant5.jpg" alt="Pişkin Restaurant" decoding="async" fetchpriority="high" data-hero-images="images/restaurant5.jpg,images/restaurant1.jpg">
+            </div>
+            <div class="slide">
+                <img src="images/restaurant1.jpg" alt="Pişkin Restaurant" decoding="async">
             </div>
         </div>
+
+        <div class="hero-overlay"></div>
         <div class="hero-content">
             <div class="hero-center">
             </div>
@@ -77,7 +84,7 @@
             <div class="about-grid">
                 <div class="about-images">
                     <div class="image-main">
-                        <img src="images/restaurant1.jpg" alt="Pişkin Restaurant">
+                        <img src="images/restaurant1.jpg" alt="Pişkin Restaurant" loading="lazy" decoding="async">
                         <div class="image-border"></div>
                     </div>
                     <div class="experience-badge">
@@ -91,7 +98,7 @@
                 <div class="about-content">
                     <div class="section-label">Hikayemiz</div>
                     <h2 class="section-title">
-                        <span class="line-1">Lezzet ve Zarafet</span><br>
+                        Lezzet ve Zarafet<br>
                         <span class="title-highlight">Bir Arada</span>
                     </h2>
                     <div class="title-underline">
@@ -130,7 +137,7 @@
                         </div>
                     </div>
                     
-                    <a href="tel:03323534396" class="btn btn-dark">
+                    <a href="#contact" class="btn btn-dark">
                         <span>Rezervasyon Yapın</span>
                         <i class="fas fa-arrow-right"></i>
                     </a>
@@ -158,9 +165,9 @@
             </div>
             
             <div class="menu-grid">
-                <div class="menu-card">
+                <div class="menu-card" data-menu-anim>
                     <div class="menu-image">
-                        <img src="images/menu1.jpg" alt="Konya Peynirli Börek">
+                        <img src="images/menu1.jpg" alt="Konya Peynirli Börek" loading="lazy" decoding="async" width="800" height="800">
                         <div class="menu-hover">
                             <div class="menu-meta">
                                 <span class="menu-label">Şefin İmzası</span>
@@ -170,9 +177,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="menu-card">
+                <div class="menu-card" data-menu-anim>
                     <div class="menu-image">
-                        <img src="images/menu2.jpg" alt="Konya Tiridi">
+                        <img src="images/menu2.jpg" alt="Konya Tiridi" loading="lazy" decoding="async" width="800" height="800">
                         <div class="menu-hover">
                             <div class="menu-meta">
                                 <span class="menu-label">Klasik Konya</span>
@@ -182,9 +189,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="menu-card">
+                <div class="menu-card" data-menu-anim>
                     <div class="menu-image">
-                        <img src="images/menu3.jpg" alt="Odun Ateşinde Etliekmek">
+                        <img src="images/menu3.jpg" alt="Odun Ateşinde Etliekmek" loading="lazy" decoding="async" width="800" height="800">
                         <div class="menu-hover">
                             <div class="menu-meta">
                                 <span class="menu-label">Taş Fırından</span>
@@ -194,9 +201,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="menu-card">
+                <div class="menu-card" data-menu-anim>
                     <div class="menu-image">
-                        <img src="images/menu4.jpg" alt="Kuşbaşı Kebab">
+                        <img src="images/menu4.jpg" alt="Kuşbaşı Kebab" loading="lazy" decoding="async" width="800" height="800">
                         <div class="menu-hover">
                             <div class="menu-meta">
                                 <span class="menu-label">Güveçten</span>
@@ -206,9 +213,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="menu-card">
+
+                <div class="menu-card" data-menu-anim>
                     <div class="menu-image">
-                        <img src="images/menu5.jpg" alt="Adana Kebap">
+                        <img src="images/menu5.jpg" alt="Adana Kebap" loading="lazy" decoding="async" width="800" height="800">
                         <div class="menu-hover">
                             <div class="menu-meta">
                                 <span class="menu-label">Izgaradan</span>
@@ -218,9 +226,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="menu-card">
+
+                <div class="menu-card" data-menu-anim>
                     <div class="menu-image">
-                        <img src="images/menu6.jpg" alt="Fırın Kebabı">
+                        <img src="images/menu6.jpg" alt="Fırın Kebabı" loading="lazy" decoding="async" width="800" height="800">
                         <div class="menu-hover">
                             <div class="menu-meta">
                                 <span class="menu-label">Klasik Konya</span>
@@ -231,62 +240,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Menu Experience Tabs -->
-    <section id="menu-experience" class="menu-experience">
-        <div class="container">
-            <div class="section-header">
-                <div class="section-label">Tat Deneyimi</div>
-                <h2 class="section-title">
-                    Menüde<br>
-                    <span class="title-highlight">Neler Var?</span>
-                </h2>
-                <div class="title-underline">
-                    <span class="underline-ornament">◆</span>
-                </div>
-                <p class="section-description">
-                    Pişkin menüsü, Konya'nın köklü lezzet mirasını modern tekniklerle buluşturur. Aşağıdaki bölümden imza tatlarımızı inceleyebilirsiniz.
-                </p>
-            </div>
-
-            <div class="menu-tabs">
-                <button class="menu-tab active" data-tab="hearth">Taş Fırın & Tandır</button>
-            </div>
-            
-            <div class="menu-tab-panels">
-                <div class="menu-tab-panel active" data-tab="hearth">
-                    <div class="menu-panel-grid">
-                        <div class="menu-panel-card">
-                            <h3>Konya Usulü Etli Ekmek</h3>
-                            <p>Taş fırında ince açılmış hamur, çift çekim dana eti, bol baharat ve taze domatesle hazırlanır.</p>
-                            <ul>
-                                <li>2 metrelik taş fırında pişirme</li>
-                                <li>Yanında közlenmiş sivri biber</li>
-                                <li>Sumaklı soğan salatası eşlik eder</li>
-                            </ul>
-                        </div>
-                        <div class="menu-panel-card">
-                            <h3>Tandırda Kuzu İncik</h3>
-                            <p>Bakır tencerede 6 saat pişen incik, safranlı iç pilav ve karamelize soğan sosuyla sunulur.</p>
-                            <ul>
-                                <li>Gizli baharat karışımıyla marine</li>
-                                <li>Keçi yoğurdu köpüğü</li>
-                                <li>Fırınlanmış kök sebze trio</li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="menu-experience-cta">
-                <a href="tel:03323534396" class="btn btn-primary">
-                    <span>Detaylı Menüyü Sor</span>
-                    <i class="fas fa-phone"></i>
-                </a>
-                <a href="#contact" class="btn btn-outline">Rezervasyon İçin Yaz</a>
-            </div>
         </div>
     </section>
 
@@ -305,41 +259,47 @@
             </div>
             
             <div class="gallery-masonry">
-                <div class="gallery-item tall">
-                    <img src="images/gallery1.jpg" alt="Galeri 1">
+                <div class="gallery-item tall" data-gallery-anim>
+                    <img src="images/gallery1.jpg" alt="Galeri 1" loading="eager" decoding="async" fetchpriority="high">
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="images/gallery2.jpg" alt="Galeri 2">
+                <div class="gallery-item" data-gallery-anim>
+                    <img src="images/gallery2.jpg" alt="Galeri 2" loading="lazy" decoding="async">
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="images/gallery3.jpg" alt="Galeri 3">
+                <div class="gallery-item" data-gallery-anim>
+                    <img src="images/gallery3.jpg" alt="Galeri 3" loading="lazy" decoding="async">
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
-                <div class="gallery-item tall">
-                    <img src="images/gallery4.jpg" alt="Galeri 4">
+                <div class="gallery-item tall" data-gallery-anim>
+                    <img src="images/gallery4.jpg" alt="Galeri 4" loading="lazy" decoding="async">
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="images/gallery5.jpg" alt="Galeri 5">
+                <div class="gallery-item" data-gallery-anim style="display:none;">
+                    <img src="images/gallery5.jpg" alt="Galeri 5" loading="lazy" decoding="async">
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="images/gallery6.jpg" alt="Galeri 6">
+                <div class="gallery-item" data-gallery-anim style="display:none;">
+                    <img src="images/gallery6.jpg" alt="Galeri 6" loading="lazy" decoding="async">
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
+                </div>
+                <div class="gallery-more-wrap" style="text-align:center;margin-top:32px;">
+                    <button id="gallery-show-more" class="btn btn-outline" style="min-width:200px;font-size:1.1rem;letter-spacing:2px;box-shadow:0 2px 24px 0 rgba(212,175,55,0.10);border-width:2.5px;transition:all .3s cubic-bezier(.4,2,.6,1);">
+                        <span id="gallery-show-more-text">Tümünü Gör</span>
+                        <i class="fas fa-chevron-down" id="gallery-show-more-icon" style="transition:transform .3s cubic-bezier(.4,2,.6,1);"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -485,7 +445,7 @@
         </div>
     </footer>
 
-    <script src="script-premium.js"></script>
-    <script src="site-content.js"></script>
+    <script src="/site-content.js?v=20251212-16"></script>
+    <script src="script-premium.js?v=20251212-16"></script>
 </body>
 </html>

@@ -1,5 +1,9 @@
 {
   "hero": {
+    "images": [
+      "images/restaurant5.jpg",
+      "images/restaurant1.jpg"
+    ],
     "subtitle": "Hoş Geldiniz",
     "titleLine1": "Geleneğin Tadı",
     "titleLine2": "Zarafetin Sofrası",

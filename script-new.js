@@ -1,3 +1,40 @@
+// --- Menü ve Galeri "Tümünü Gör" Elit Özelliği ---
+function setupShowMore(section, itemSelector, btnId, textId, iconId, visibleCount) {
+    const items = Array.from(document.querySelectorAll(itemSelector));
+    const btn = document.getElementById(btnId);
+    const text = document.getElementById(textId);
+    const icon = document.getElementById(iconId);
+    let expanded = false;
+    if (!btn) return;
+    function updateView() {
+        items.forEach((item, i) => {
+            if (!expanded && i >= visibleCount) {
+                item.style.display = 'none';
+            } else {
+                item.style.display = '';
+                item.style.opacity = expanded || i < visibleCount ? '1' : '0';
+                item.style.transform = expanded || i < visibleCount ? 'translateY(0)' : 'translateY(40px)';
+            }
+        });
+        text.textContent = expanded ? 'Daha Az Göster' : 'Tümünü Gör';
+        icon.className = expanded ? 'fas fa-chevron-up' : 'fas fa-chevron-down';
+        icon.style.transform = expanded ? 'rotate(180deg)' : 'rotate(0)';
+    }
+    btn.onclick = function() {
+        expanded = !expanded;
+        updateView();
+    };
+    // Animasyon için başlangıç stilleri
+    items.forEach((item, i) => {
+        item.style.transition = 'all .5s cubic-bezier(.4,2,.6,1)';
+    });
+    updateView();
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+    setupShowMore('menu', '[data-menu-anim]', 'menu-show-more', 'menu-show-more-text', 'menu-show-more-icon', 2);
+    setupShowMore('gallery', '[data-gallery-anim]', 'gallery-show-more', 'gallery-show-more-text', 'gallery-show-more-icon', 4);
+});
 // Modern Restaurant Website JavaScript
 
 // Mobile Menu Toggle

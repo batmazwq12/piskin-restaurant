@@ -155,7 +155,7 @@
             </div>
 
             <div class="menu-grid">
-                <div class="menu-item">
+                <div class="menu-item" data-menu-anim>
                     <div class="menu-image">
                         <img src="images/menu1.jpg" alt="Menü">
                     </div>
@@ -165,8 +165,7 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="menu-item">
+                <div class="menu-item" data-menu-anim>
                     <div class="menu-image">
                         <img src="images/menu2.jpg" alt="Menü">
                     </div>
@@ -176,8 +175,7 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="menu-item">
+                <div class="menu-item" data-menu-anim style="display:none;">
                     <div class="menu-image">
                         <img src="images/menu3.jpg" alt="Menü">
                     </div>
@@ -187,8 +185,7 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="menu-item">
+                <div class="menu-item" data-menu-anim style="display:none;">
                     <div class="menu-image">
                         <img src="images/menu4.jpg" alt="Menü">
                     </div>
@@ -198,8 +195,7 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="menu-item">
+                <div class="menu-item" data-menu-anim style="display:none;">
                     <div class="menu-image">
                         <img src="images/menu5.jpg" alt="Menü">
                     </div>
@@ -209,8 +205,7 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="menu-item">
+                <div class="menu-item" data-menu-anim style="display:none;">
                     <div class="menu-image">
                         <img src="images/menu6.jpg" alt="Menü">
                     </div>
@@ -219,6 +214,12 @@
                             <h3>Fırın Kebabı</h3>
                         </div>
                     </div>
+                </div>
+                <div class="menu-more-wrap" style="text-align:center;margin-top:32px;">
+                    <button id="menu-show-more" class="btn btn-outline" style="min-width:200px;font-size:1.1rem;letter-spacing:2px;box-shadow:0 2px 24px 0 rgba(212,175,55,0.10);border-width:2.5px;transition:all .3s cubic-bezier(.4,2,.6,1);">
+                        <span id="menu-show-more-text">Tümünü Gör</span>
+                        <i class="fas fa-chevron-down" id="menu-show-more-icon" style="transition:transform .3s cubic-bezier(.4,2,.6,1);"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -234,41 +235,47 @@
             </div>
 
             <div class="gallery-grid">
-                <div class="gallery-item">
+                <div class="gallery-item" data-gallery-anim>
                     <img src="images/gallery1.jpg" alt="Galeri">
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item" data-gallery-anim>
                     <img src="images/gallery2.jpg" alt="Galeri">
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item" data-gallery-anim>
                     <img src="images/gallery3.jpg" alt="Galeri">
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item" data-gallery-anim>
                     <img src="images/gallery4.jpg" alt="Galeri">
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item" data-gallery-anim style="display:none;">
                     <img src="images/gallery5.jpg" alt="Galeri">
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item" data-gallery-anim style="display:none;">
                     <img src="images/gallery6.jpg" alt="Galeri">
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
+                </div>
+                <div class="gallery-more-wrap" style="text-align:center;margin-top:32px;">
+                    <button id="gallery-show-more" class="btn btn-outline" style="min-width:200px;font-size:1.1rem;letter-spacing:2px;box-shadow:0 2px 24px 0 rgba(212,175,55,0.10);border-width:2.5px;transition:all .3s cubic-bezier(.4,2,.6,1);">
+                        <span id="gallery-show-more-text">Tümünü Gör</span>
+                        <i class="fas fa-chevron-down" id="gallery-show-more-icon" style="transition:transform .3s cubic-bezier(.4,2,.6,1);"></i>
+                    </button>
                 </div>
             </div>
         </div>

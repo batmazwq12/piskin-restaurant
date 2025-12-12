@@ -60,6 +60,15 @@ const ensureSocialArray = () => {
     return content.social;
 };
 
+const ensureHeroImagesArray = () => {
+    const content = ensureContent();
+    content.hero = content.hero || {};
+    if (!Array.isArray(content.hero.images)) {
+        content.hero.images = [];
+    }
+    return content.hero.images;
+};
+
 async function loadContent() {
     const res = await fetch('/api/content');
     state.content = await res.json();
@@ -87,6 +96,47 @@ function renderLists() {
     renderMenuList();
     renderGalleryList();
     renderSocialList();
+    renderHeroImagesList();
+}
+
+function renderHeroImagesList() {
+    const container = document.getElementById('hero-images-list');
+    if (!container) return;
+    container.innerHTML = '';
+    const tpl = document.getElementById('hero-image-template');
+    const images = ensureHeroImagesArray();
+
+    images.forEach((src, index) => {
+        const node = tpl.content.firstElementChild.cloneNode(true);
+        const hidden = node.querySelector('input[type="hidden"][data-field="hero-image"]');
+        const text = node.querySelector('input[data-field="hero-image-path"]');
+        const preview = node.querySelector('img[data-field="hero-image-preview"]');
+
+        hidden.value = src || '';
+        text.value = src || '';
+
+        if (src) {
+            preview.style.display = 'block';
+            preview.src = src;
+        }
+
+        text.addEventListener('input', (e) => {
+            const value = e.target.value;
+            state.content.hero.images[index] = value;
+            hidden.value = value;
+            if (value) {
+                preview.style.display = 'block';
+                preview.src = value;
+            }
+        });
+
+        node.querySelector('[data-action="remove-item"]').addEventListener('click', () => {
+            state.content.hero.images.splice(index, 1);
+            renderHeroImagesList();
+        });
+
+        container.appendChild(node);
+    });
 }
 
 function renderFeatureList() {
@@ -232,6 +282,11 @@ function attachEvents() {
         ensureSocialArray().push({ platform: '', url: '' });
         renderSocialList();
     });
+
+    document.querySelector('[data-action="add-hero-image"]').addEventListener('click', () => {
+        ensureHeroImagesArray().push('');
+        renderHeroImagesList();
+    });
     document.getElementById('btn-sync-json').addEventListener('click', () => {
         try {
             const parsed = JSON.parse(document.getElementById('raw-json').value);
@@ -249,4 +304,63 @@ function attachEvents() {
     document.getElementById('admin-token').value = state.token;
     attachEvents();
     loadContent();
+    // Görsel yükleme inputlarını dinle
+    document.body.addEventListener('change', async function (e) {
+        const input = e.target;
+        if (input.matches('input[type="file"][data-field="image-upload"], input[type="file"][data-field="hero-image-upload"]')) {
+            const file = input.files[0];
+            if (!file) return;
+            // Önizleme
+            const preview = input.parentElement.querySelector('img[data-field="image-preview"], img[data-field="hero-image-preview"]');
+            preview.style.display = 'block';
+            preview.src = URL.createObjectURL(file);
+            // Yükleme
+            const formData = new FormData();
+            formData.append('image', file);
+            try {
+                const res = await fetch('/api/upload', { method: 'POST', body: formData });
+                const data = await res.json();
+                if (res.ok && data.filePath) {
+                    // Gizli inputa yolu yaz
+                    const hidden = input.parentElement.querySelector('input[type="hidden"][data-field="image"], input[type="hidden"][data-field="hero-image"]');
+                    hidden.value = data.filePath;
+
+                    // Hero image text input (if exists)
+                    const heroText = input.parentElement.querySelector('input[data-field="hero-image-path"]');
+                    if (heroText) {
+                        heroText.value = data.filePath;
+                    }
+
+                    // Bağlı objeye de yaz (menü veya galeri)
+                    // Menü
+                    const menuNode = input.closest('[id^="menu-template"],[id^="gallery-template"]');
+                    if (menuNode) {
+                        // Menü
+                        const menuIndex = Array.from(document.querySelectorAll('#menu-list .repeat-item')).indexOf(input.closest('.repeat-item'));
+                        if (menuIndex !== -1 && state.content.menu && state.content.menu[menuIndex]) {
+                            state.content.menu[menuIndex].image = data.filePath;
+                        }
+                        // Galeri
+                        const galIndex = Array.from(document.querySelectorAll('#gallery-list .repeat-item')).indexOf(input.closest('.repeat-item'));
+                        if (galIndex !== -1 && state.content.gallery && state.content.gallery[galIndex]) {
+                            state.content.gallery[galIndex].image = data.filePath;
+                        }
+                    }
+
+                    // Hero images
+                    const heroItem = input.closest('#hero-images-list .repeat-item');
+                    if (heroItem) {
+                        const heroIndex = Array.from(document.querySelectorAll('#hero-images-list .repeat-item')).indexOf(heroItem);
+                        if (heroIndex !== -1 && state.content.hero && Array.isArray(state.content.hero.images)) {
+                            state.content.hero.images[heroIndex] = data.filePath;
+                        }
+                    }
+                } else {
+                    alert('Görsel yüklenemedi: ' + (data.message || 'Sunucu hatası'));
+                }
+            } catch (err) {
+                alert('Görsel yüklenemedi: ' + err.message);
+            }
+        }
+    });
 })();
