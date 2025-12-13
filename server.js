@@ -35,6 +35,21 @@ if (!ADMIN_TOKEN) {
 app.use(cors());
 app.use(express.json({ limit: '2mb' }));
 
+// Railway (and most reverse proxies) forward https via headers
+app.set('trust proxy', 1);
+
+function getBaseUrl(req) {
+  const proto = (req.headers['x-forwarded-proto'] || req.protocol || 'http')
+    .toString()
+    .split(',')[0]
+    .trim();
+  const host = (req.headers['x-forwarded-host'] || req.headers.host || '')
+    .toString()
+    .split(',')[0]
+    .trim();
+  return host ? `${proto}://${host}` : '';
+}
+
 function readContent() {
   const raw = fs.readFileSync(DATA_PATH, 'utf-8');
   return JSON.parse(raw);
@@ -80,6 +95,46 @@ app.get('/api/content', (req, res) => {
     console.error('Error reading content', error);
     res.status(500).json({ message: 'Unable to load content' });
   }
+});
+
+// Health check (useful for Railway + debugging)
+app.get('/health', (req, res) => {
+  res.type('text/plain');
+  res.set('Cache-Control', 'no-store');
+  res.send('ok');
+});
+
+// Basic SEO endpoints
+app.get('/robots.txt', (req, res) => {
+  const base = getBaseUrl(req);
+  res.type('text/plain');
+  res.set('Cache-Control', 'no-store');
+  res.send(
+    [
+      'User-agent: *',
+      'Allow: /',
+      base ? `Sitemap: ${base}/sitemap.xml` : 'Sitemap: /sitemap.xml'
+    ].join('\n') + '\n'
+  );
+});
+
+app.get('/sitemap.xml', (req, res) => {
+  const base = getBaseUrl(req) || '';
+  const urls = ['/', '/admin'].map((p) => (base ? `${base}${p}` : p));
+
+  res.type('application/xml');
+  res.set('Cache-Control', 'no-store');
+  res.send(
+    `<?xml version="1.0" encoding="UTF-8"?>\n` +
+      `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+      urls
+        .map(
+          (loc) =>
+            `  <url><loc>${loc}</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>`
+        )
+        .join('\n') +
+      `\n</urlset>\n`
+  );
 });
 // Expose content to the frontend as a small JS payload (used for hero slideshow etc.)
 app.get('/site-content.js', (req, res) => {
