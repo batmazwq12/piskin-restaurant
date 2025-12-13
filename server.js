@@ -160,6 +160,17 @@ app.get('/admin', (req, res) => {
   res.sendFile(path.join(__dirname, 'admin.html'));
 });
 
+// Prevent stale caching of admin assets on mobile/hosted environments
+app.get('/admin.js', (req, res) => {
+  res.set('Cache-Control', 'no-store');
+  res.sendFile(path.join(__dirname, 'admin.js'));
+});
+
+app.get('/admin.css', (req, res) => {
+  res.set('Cache-Control', 'no-store');
+  res.sendFile(path.join(__dirname, 'admin.css'));
+});
+
 app.use(express.static(path.join(__dirname)));
 
 // Görsel yükleme endpointi

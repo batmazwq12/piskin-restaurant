@@ -88,7 +88,12 @@ const ensureHeroImagesArray = () => {
 };
 
 async function loadContent() {
-    const res = await fetch('/api/content');
+    const res = await fetch('/api/content', { cache: 'no-store' });
+    if (!res.ok) {
+        const text = await res.text().catch(() => '');
+        alert('İçerik yüklenemedi.\n\nDurum: ' + res.status + '\n' + (text || ''));
+        return;
+    }
     state.content = await res.json();
     fillBindings();
     renderLists();
@@ -273,6 +278,7 @@ async function saveContent() {
 
         const res = await fetch('/api/content', {
             method: 'PUT',
+            cache: 'no-store',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${encodeTokenForHeader(token)}`,
@@ -373,19 +379,23 @@ function attachEvents() {
                         heroText.value = data.filePath;
                     }
 
-                    // Bağlı objeye de yaz (menü veya galeri)
-                    // Menü
-                    const menuNode = input.closest('[id^="menu-template"],[id^="gallery-template"]');
-                    if (menuNode) {
-                        // Menü
-                        const menuIndex = Array.from(document.querySelectorAll('#menu-list .repeat-item')).indexOf(input.closest('.repeat-item'));
-                        if (menuIndex !== -1 && state.content.menu && state.content.menu[menuIndex]) {
-                            state.content.menu[menuIndex].image = data.filePath;
+                    // Bağlı objeye de yaz (menü / galeri / hero) -> yoksa Kaydet'e yansımaz
+                    const repeatItem = input.closest('.repeat-item');
+                    if (repeatItem) {
+                        const menuWrap = repeatItem.closest('#menu-list');
+                        if (menuWrap) {
+                            const menuIndex = Array.from(menuWrap.querySelectorAll('.repeat-item')).indexOf(repeatItem);
+                            if (menuIndex !== -1 && state.content.menu && state.content.menu[menuIndex]) {
+                                state.content.menu[menuIndex].image = data.filePath;
+                            }
                         }
-                        // Galeri
-                        const galIndex = Array.from(document.querySelectorAll('#gallery-list .repeat-item')).indexOf(input.closest('.repeat-item'));
-                        if (galIndex !== -1 && state.content.gallery && state.content.gallery[galIndex]) {
-                            state.content.gallery[galIndex].image = data.filePath;
+
+                        const galleryWrap = repeatItem.closest('#gallery-list');
+                        if (galleryWrap) {
+                            const galIndex = Array.from(galleryWrap.querySelectorAll('.repeat-item')).indexOf(repeatItem);
+                            if (galIndex !== -1 && state.content.gallery && state.content.gallery[galIndex]) {
+                                state.content.gallery[galIndex].image = data.filePath;
+                            }
                         }
                     }
 
