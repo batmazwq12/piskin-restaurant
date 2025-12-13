@@ -12,52 +12,51 @@ window.addEventListener('load', () => {
     const audio = document.getElementById('bg-audio');
     if (!audio) return;
 
-    // Keep it subtle by default
-    try {
-        audio.muted = false;
-        audio.volume = 0.35;
-    } catch {
-        // Ignore volume errors
-    }
+    // Strategy:
+    // 1) Try muted autoplay (often allowed on mobile)
+    // 2) On the first user gesture, unmute + play synchronously
+    let unlocked = false;
 
-    let started = false;
+    const cleanup = () => {
+        ['pointerdown', 'touchstart', 'click', 'keydown'].forEach(evt => {
+            window.removeEventListener(evt, onFirstGesture, { capture: true });
+        });
+    };
 
-    const tryPlay = async () => {
+    const safePlay = () => {
         try {
-            const result = audio.play();
-            if (result && typeof result.then === 'function') {
-                await result;
-            }
-            return true;
+            const p = audio.play();
+            if (p && typeof p.catch === 'function') p.catch(() => {});
         } catch {
-            return false;
+            // ignore
         }
     };
 
-    const events = ['pointerdown', 'touchstart', 'keydown'];
-    const handler = async () => {
-        if (started) return;
-        started = true;
-        const ok = await tryPlay();
-        if (!ok) {
-            started = false;
-            return;
+    const onFirstGesture = () => {
+        if (unlocked) return;
+        unlocked = true;
+        try {
+            audio.muted = false;
+            audio.volume = 0.35;
+        } catch {
+            // ignore
         }
+        safePlay();
         cleanup();
     };
 
-    const cleanup = () => {
-        events.forEach(evt => window.removeEventListener(evt, handler, { capture: true }));
-    };
+    // Register immediately so early taps (before load) still work
+    ['pointerdown', 'touchstart', 'click', 'keydown'].forEach(evt => {
+        window.addEventListener(evt, onFirstGesture, { passive: true, capture: true });
+    });
 
-    // Register immediately so early taps (before load) still start audio
-    events.forEach(evt => window.addEventListener(evt, handler, { passive: true, capture: true }));
-
-    // Also attempt after full load (works on some browsers if allowed)
-    window.addEventListener('load', async () => {
-        const ok = await tryPlay();
-        if (ok) cleanup();
-    }, { once: true });
+    // Muted autoplay attempt (best effort)
+    try {
+        audio.muted = true;
+    } catch {
+        // ignore
+    }
+    safePlay();
 })();
 
 // Normalize hero title lines if legacy markup is still cached
