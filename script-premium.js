@@ -14,10 +14,13 @@ window.addEventListener('load', () => {
 
     // Keep it subtle by default
     try {
-        audio.volume = 0.25;
+        audio.muted = false;
+        audio.volume = 0.35;
     } catch {
         // Ignore volume errors
     }
+
+    let started = false;
 
     const tryPlay = async () => {
         try {
@@ -31,25 +34,29 @@ window.addEventListener('load', () => {
         }
     };
 
-    const startOnFirstGesture = () => {
-        const handler = async () => {
-            const ok = await tryPlay();
-            if (!ok) return;
-            cleanup();
-        };
-
-        const events = ['pointerdown', 'touchstart', 'keydown'];
-        const cleanup = () => {
-            events.forEach(evt => window.removeEventListener(evt, handler, { capture: true }));
-        };
-
-        events.forEach(evt => window.addEventListener(evt, handler, { passive: true, capture: true }));
+    const events = ['pointerdown', 'touchstart', 'keydown'];
+    const handler = async () => {
+        if (started) return;
+        started = true;
+        const ok = await tryPlay();
+        if (!ok) {
+            started = false;
+            return;
+        }
+        cleanup();
     };
 
-    // Attempt on load (works on some browsers if allowed)
+    const cleanup = () => {
+        events.forEach(evt => window.removeEventListener(evt, handler, { capture: true }));
+    };
+
+    // Register immediately so early taps (before load) still start audio
+    events.forEach(evt => window.addEventListener(evt, handler, { passive: true, capture: true }));
+
+    // Also attempt after full load (works on some browsers if allowed)
     window.addEventListener('load', async () => {
         const ok = await tryPlay();
-        if (!ok) startOnFirstGesture();
+        if (ok) cleanup();
     }, { once: true });
 })();
 
