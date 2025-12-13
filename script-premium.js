@@ -17,14 +17,19 @@ window.addEventListener('load', () => {
     // 2) On the first user gesture, unmute + play synchronously
     let unlocked = false;
 
+    const events = ['pointerdown', 'touchstart', 'click', 'keydown'];
+
     const cleanup = () => {
-        ['pointerdown', 'touchstart', 'click', 'keydown'].forEach(evt => {
+        events.forEach(evt => {
             window.removeEventListener(evt, onFirstGesture, { capture: true });
+            document.removeEventListener(evt, onFirstGesture, { capture: true });
         });
     };
 
     const safePlay = () => {
         try {
+            // Some browsers need an explicit load after src is set
+            if (typeof audio.load === 'function') audio.load();
             const p = audio.play();
             if (p && typeof p.catch === 'function') p.catch(() => {});
         } catch {
@@ -37,17 +42,20 @@ window.addEventListener('load', () => {
         unlocked = true;
         try {
             audio.muted = false;
-            audio.volume = 0.35;
+            audio.volume = 0.55;
         } catch {
             // ignore
         }
+        // Do two attempts: immediate (gesture) + short delay
         safePlay();
+        window.setTimeout(() => safePlay(), 250);
         cleanup();
     };
 
     // Register immediately so early taps (before load) still work
-    ['pointerdown', 'touchstart', 'click', 'keydown'].forEach(evt => {
+    events.forEach(evt => {
         window.addEventListener(evt, onFirstGesture, { passive: true, capture: true });
+        document.addEventListener(evt, onFirstGesture, { passive: true, capture: true });
     });
 
     // Muted autoplay attempt (best effort)
