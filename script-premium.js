@@ -7,6 +7,52 @@ window.addEventListener('load', () => {
     }, 1500);
 });
 
+// Background Audio (browser autoplay policies require user interaction)
+(function initBackgroundAudio() {
+    const audio = document.getElementById('bg-audio');
+    if (!audio) return;
+
+    // Keep it subtle by default
+    try {
+        audio.volume = 0.25;
+    } catch {
+        // Ignore volume errors
+    }
+
+    const tryPlay = async () => {
+        try {
+            const result = audio.play();
+            if (result && typeof result.then === 'function') {
+                await result;
+            }
+            return true;
+        } catch {
+            return false;
+        }
+    };
+
+    const startOnFirstGesture = () => {
+        const handler = async () => {
+            const ok = await tryPlay();
+            if (!ok) return;
+            cleanup();
+        };
+
+        const events = ['pointerdown', 'touchstart', 'keydown'];
+        const cleanup = () => {
+            events.forEach(evt => window.removeEventListener(evt, handler, { capture: true }));
+        };
+
+        events.forEach(evt => window.addEventListener(evt, handler, { passive: true, capture: true }));
+    };
+
+    // Attempt on load (works on some browsers if allowed)
+    window.addEventListener('load', async () => {
+        const ok = await tryPlay();
+        if (!ok) startOnFirstGesture();
+    }, { once: true });
+})();
+
 // Normalize hero title lines if legacy markup is still cached
 (function collapseHeroTitle() {
     const heroTitle = document.querySelector('.hero-title');
