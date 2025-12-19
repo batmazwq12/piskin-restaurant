@@ -161,6 +161,9 @@ const dots = Array.from(document.querySelectorAll('.pagination-dot'));
 const prevBtn = document.querySelector('.slider-arrow.prev');
 const nextBtn = document.querySelector('.slider-arrow.next');
 
+const HERO_SLIDE_INTERVAL_MS = 10000;
+const HERO_CROSSFADE_MS = 2400;
+
 // If there's only one slide in markup, allow rotating its image via admin content
 // Expected: window.__SITE_CONTENT.hero.images = ["images/a.jpg", "images/b.jpg", ...]
 function getHeroImageListFromContent() {
@@ -199,8 +202,13 @@ function getHeroImageListFromDataAttr() {
 
 function setupSingleHeroImageRotation() {
     if (slides.length !== 1) return;
-    const img = slides[0]?.querySelector('img');
-    if (!img) return;
+    const slide = slides[0];
+    const imgA = slide?.querySelector('img');
+    if (!imgA) return;
+
+    // Ensure the base slide is visible and images can crossfade
+    slide.classList.add('active');
+    imgA.classList.add('hero-img');
 
     const images = getHeroImageListFromContent();
     const fallbackImages = images.length ? images : getHeroImageListFromDataAttr();
@@ -215,20 +223,61 @@ function setupSingleHeroImageRotation() {
         p.src = src;
     }
 
+    // Create second layer for true crossfade
+    let imgB = slide.querySelector('img.hero-img[data-hero-layer="b"]');
+    if (!imgB) {
+        imgB = imgA.cloneNode(true);
+        imgB.removeAttribute('fetchpriority');
+        imgB.setAttribute('data-hero-layer', 'b');
+        imgB.classList.remove('hero-img--show');
+        imgB.classList.add('hero-img');
+        slide.appendChild(imgB);
+    }
+
+    // Show the first image initially
+    imgA.classList.add('hero-img--show');
+
+    let showing = imgA;
+    let hidden = imgB;
+
     function setImage(next) {
         if (!next) return;
-        const currentAbs = new URL(img.getAttribute('src') || '', window.location.href).href;
+        const currentAbs = new URL(showing.getAttribute('src') || '', window.location.href).href;
         if (currentAbs === next.abs) return;
-        // quick fade using existing slide element
-        slides[0].classList.remove('active');
-        window.requestAnimationFrame(() => {
-            img.src = next.raw;
-            slides[0].classList.add('active');
-        });
+
+        // Load the next image into the hidden layer, then crossfade
+        hidden.classList.remove('hero-img--show');
+        hidden.src = next.raw;
+        hidden.alt = showing.alt || 'Pişkin Restaurant';
+
+        const commitSwap = () => {
+            // Restart the slow zoom by re-adding the class
+            hidden.classList.remove('hero-img--show');
+            void hidden.offsetWidth;
+            hidden.classList.add('hero-img--show');
+            showing.classList.remove('hero-img--show');
+            const tmp = showing;
+            showing = hidden;
+            hidden = tmp;
+        };
+
+        const tryDecode = hidden.decode?.bind(hidden);
+        if (tryDecode) {
+            tryDecode().then(commitSwap).catch(() => {
+                window.setTimeout(commitSwap, 50);
+            });
+        } else {
+            hidden.onload = () => {
+                hidden.onload = null;
+                commitSwap();
+            };
+            // Safety: if load event never fires, still swap
+            window.setTimeout(commitSwap, 400);
+        }
     }
 
     // Start with the first image in list (keep current if it matches)
-    const currentAbs = new URL(img.getAttribute('src') || '', window.location.href).href;
+    const currentAbs = new URL(imgA.getAttribute('src') || '', window.location.href).href;
     const initialIndex = fallbackImages.findIndex(x => x.abs === currentAbs);
     if (initialIndex >= 0) {
         idx = initialIndex;
@@ -243,7 +292,7 @@ function setupSingleHeroImageRotation() {
         idx = (idx + 1) % fallbackImages.length;
         setImage(fallbackImages[idx]);
         preload(fallbackImages[(idx + 1) % fallbackImages.length].raw);
-    }, 3000);
+    }, HERO_SLIDE_INTERVAL_MS);
 }
 
 if (slides.length > 1) {
@@ -251,6 +300,13 @@ if (slides.length > 1) {
 
     function showSlide(index) {
         slides.forEach(slide => slide.classList.remove('active'));
+        slides.forEach(slide => {
+            const img = slide.querySelector('img');
+            if (img) {
+                img.classList.add('hero-img');
+                img.classList.remove('hero-img--show');
+            }
+        });
         if (dots.length) {
             dots.forEach(dot => dot.classList.remove('active'));
         }
@@ -263,7 +319,10 @@ if (slides.length > 1) {
             currentSlide = index;
         }
 
-        slides[currentSlide].classList.add('active');
+        const nextSlideEl = slides[currentSlide];
+        nextSlideEl.classList.add('active');
+        const nextImg = nextSlideEl.querySelector('img');
+        nextImg?.classList.add('hero-img', 'hero-img--show');
         if (dots.length && dots[currentSlide]) {
             dots[currentSlide].classList.add('active');
         }
@@ -277,11 +336,11 @@ if (slides.length > 1) {
         showSlide(currentSlide - 1);
     }
 
-    let slideInterval = setInterval(nextSlide, 3000);
+    let slideInterval = setInterval(nextSlide, HERO_SLIDE_INTERVAL_MS);
 
     function resetSlideInterval() {
         clearInterval(slideInterval);
-        slideInterval = setInterval(nextSlide, 3000);
+        slideInterval = setInterval(nextSlide, HERO_SLIDE_INTERVAL_MS);
     }
 
     prevBtn?.addEventListener('click', () => {
@@ -309,9 +368,10 @@ if (slides.length > 1) {
     });
 
     heroSlider?.addEventListener('mouseleave', () => {
-        slideInterval = setInterval(nextSlide, 5000);
+        slideInterval = setInterval(nextSlide, HERO_SLIDE_INTERVAL_MS);
     });
 } else {
+    // Keep a single-slide hero visible; crossfade happens between layered images
     slides[0]?.classList.add('active');
     setupSingleHeroImageRotation();
 }

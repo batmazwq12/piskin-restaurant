@@ -2,7 +2,8 @@
   "hero": {
     "images": [
       "images/restaurant5.jpg",
-      "images/restaurant1.jpg"
+      "images/restaurant1.jpg",
+      "images/restaurant-terrace.jpg"
     ],
     "subtitle": "Hoş Geldiniz",
     "titleLine1": "Geleneğin Tadı",
@@ -13,9 +14,9 @@
     "label": "Hikayemiz",
     "titleLine1": "Zarafetin ve Lezzetin",
     "titleHighlight": "Buluşması",
-    "lead": "Yarım asrı aşkın süredir Konya mutfağının ruhunu taşıyan sofralar kuruyoruz.",
-    "text": "Yerel üreticilerden temin ettiğimiz malzemeler, mevsime göre şekillenen menüler ve ustaların elinden çıkan sunumlarla misafirlerimizi ağırlıyoruz.",
-    "experienceYears": 45,
+    "lead": "1970'ten beri Konya mutfağının ruhunu taşıyan sofralar kuruyoruz.",
+    "text": "1970'ten bugüne uzanan köklü geçmişimizle; yerel üreticilerden temin ettiğimiz malzemeler, mevsime göre şekillenen menüler ve ustaların elinden çıkan sunumlarla misafirlerimizi ağırlıyoruz.",
+    "experienceYears": 1970,
     "features": [
       {
         "icon": "fas fa-tree",

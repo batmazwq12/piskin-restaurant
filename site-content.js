@@ -89,7 +89,7 @@
         if (about.experienceYears) {
             const badge = section.querySelector('.experience-badge .badge-number');
             if (badge) {
-                badge.textContent = `${about.experienceYears}+`;
+                badge.textContent = `${about.experienceYears}`;
             }
         }
 
