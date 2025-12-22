@@ -6,15 +6,62 @@
     <!-- BUILD: 2025-12-13T00:00Z (cache-bust) -->
     <meta name="app-build" content="2025-12-13T00:00Z">
     <meta name="description" content="Pişkin Restaurant Konya: seçkin lezzetler, şık atmosfer ve rezervasyon. Adres, telefon ve galeriye hemen ulaşın.">
+        <link rel="icon" href="/images/piskin-logo.png" type="image/png">
+        <link rel="apple-touch-icon" href="/images/piskin-logo.png">
     <meta property="og:title" content="Pişkin Restaurant">
     <meta property="og:description" content="Konya'da lezzetin ve zarafetin buluşma noktası. Menü, galeri ve rezervasyon bilgileri.">
     <meta property="og:type" content="website">
     <meta property="og:locale" content="tr_TR">
+        <meta property="og:image" content="/images/restaurant5.jpg">
+        <meta property="og:image:alt" content="Pişkin Restaurant">
     <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:image" content="/images/restaurant5.jpg">
     <title>Pişkin Restaurant - Lezzetin ve Zarafetin Buluşma Noktası</title>
     <link rel="stylesheet" href="styles-premium.css?v=20251212-8">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "Restaurant",
+                "name": "Pişkin Restaurant",
+                "image": [
+                    "/images/restaurant5.jpg",
+                    "/images/restaurant1.jpg"
+                ],
+                "telephone": "+90 332 353 43 96",
+                "email": "piskin.thr@gmail.com",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "Aziziye Mah. Şht. Nazım Bey Cd. No:7",
+                    "addressLocality": "Karatay",
+                    "addressRegion": "Konya",
+                    "postalCode": "42030",
+                    "addressCountry": "TR"
+                },
+                "openingHoursSpecification": [
+                    {
+                        "@type": "OpeningHoursSpecification",
+                        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                        "opens": "10:00",
+                        "closes": "23:00"
+                    },
+                    {
+                        "@type": "OpeningHoursSpecification",
+                        "dayOfWeek": ["Saturday", "Sunday"],
+                        "opens": "10:00",
+                        "closes": "00:00"
+                    }
+                ],
+                "servesCuisine": ["Turkish"],
+                "priceRange": "₺₺",
+                "sameAs": [
+                    "https://www.instagram.com/piskinrestorant/",
+                    "https://www.facebook.com/p/Konya-Pi%C5%9Fkin-Restaurant-100065527988376/"
+                ]
+            }
+        </script>
 </head>
 <body>
     <!-- Background audio (starts after first user interaction if autoplay is blocked) -->
@@ -35,7 +82,6 @@
 
     <!-- Luxury Navigation -->
     <nav class="navbar">
-bak 
         <div class="nav-container">
             <div class="logo-wrapper">
                 <div class="logo">
@@ -176,7 +222,7 @@ bak
             <div class="menu-grid">
                 <div class="menu-card" data-menu-anim>
                     <div class="menu-image">
-                        <img src="images/menu1.jpg" alt="Konya Peynirli Börek" loading="lazy" decoding="async" width="800" height="800">
+                        <img src="images/menu1.jpg" alt="Konya Peynirli Börek" loading="lazy" decoding="async" fetchpriority="low" width="800" height="800">
                         <div class="menu-hover">
                             <div class="menu-meta">
                                 <span class="menu-label">Şefin İmzası</span>
@@ -188,7 +234,7 @@ bak
                 </div>
                 <div class="menu-card" data-menu-anim>
                     <div class="menu-image">
-                        <img src="images/menu2.jpg" alt="Konya Tiridi" loading="lazy" decoding="async" width="800" height="800">
+                        <img src="images/menu2.jpg" alt="Konya Tiridi" loading="lazy" decoding="async" fetchpriority="low" width="800" height="800">
                         <div class="menu-hover">
                             <div class="menu-meta">
                                 <span class="menu-label">Klasik Konya</span>
@@ -200,7 +246,7 @@ bak
                 </div>
                 <div class="menu-card" data-menu-anim>
                     <div class="menu-image">
-                        <img src="images/menu3.jpg" alt="Odun Ateşinde Etliekmek" loading="lazy" decoding="async" width="800" height="800">
+                        <img src="images/menu3.jpg" alt="Odun Ateşinde Etliekmek" loading="lazy" decoding="async" fetchpriority="low" width="800" height="800">
                         <div class="menu-hover">
                             <div class="menu-meta">
                                 <span class="menu-label">Taş Fırından</span>
@@ -212,7 +258,7 @@ bak
                 </div>
                 <div class="menu-card" data-menu-anim>
                     <div class="menu-image">
-                        <img src="images/menu4.jpg" alt="Kuşbaşı Kebab" loading="lazy" decoding="async" width="800" height="800">
+                        <img src="images/menu4.jpg" alt="Kuşbaşı Kebab" loading="lazy" decoding="async" fetchpriority="low" width="800" height="800">
                         <div class="menu-hover">
                             <div class="menu-meta">
                                 <span class="menu-label">Güveçten</span>
@@ -225,7 +271,7 @@ bak
 
                 <div class="menu-card" data-menu-anim>
                     <div class="menu-image">
-                        <img src="images/menu5.jpg" alt="Adana Kebap" loading="lazy" decoding="async" width="800" height="800">
+                        <img src="images/menu5.jpg" alt="Adana Kebap" loading="lazy" decoding="async" fetchpriority="low" width="800" height="800">
                         <div class="menu-hover">
                             <div class="menu-meta">
                                 <span class="menu-label">Izgaradan</span>
@@ -238,7 +284,7 @@ bak
 
                 <div class="menu-card" data-menu-anim>
                     <div class="menu-image">
-                        <img src="images/menu6.jpg" alt="Fırın Kebabı" loading="lazy" decoding="async" width="800" height="800">
+                        <img src="images/menu6.jpg" alt="Fırın Kebabı" loading="lazy" decoding="async" fetchpriority="low" width="800" height="800">
                         <div class="menu-hover">
                             <div class="menu-meta">
                                 <span class="menu-label">Klasik Konya</span>
@@ -269,37 +315,37 @@ bak
             
             <div class="gallery-masonry">
                 <div class="gallery-item tall" data-gallery-anim>
-                    <img src="images/gallery1.jpg" alt="Galeri 1" loading="eager" decoding="async" fetchpriority="high">
+                    <img src="images/gallery1.jpg" alt="Galeri 1" loading="lazy" decoding="async" fetchpriority="low">
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
                 <div class="gallery-item" data-gallery-anim>
-                    <img src="images/gallery2.jpg" alt="Galeri 2" loading="lazy" decoding="async">
+                    <img src="images/gallery2.jpg" alt="Galeri 2" loading="lazy" decoding="async" fetchpriority="low">
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
                 <div class="gallery-item" data-gallery-anim>
-                    <img src="images/gallery3.jpg" alt="Galeri 3" loading="lazy" decoding="async">
+                    <img src="images/gallery3.jpg" alt="Galeri 3" loading="lazy" decoding="async" fetchpriority="low">
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
                 <div class="gallery-item tall" data-gallery-anim>
-                    <img src="images/gallery4.jpg" alt="Galeri 4" loading="lazy" decoding="async">
+                    <img src="images/gallery4.jpg" alt="Galeri 4" loading="lazy" decoding="async" fetchpriority="low">
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
                 <div class="gallery-item" data-gallery-anim style="display:none;">
-                    <img src="images/gallery5.jpg" alt="Galeri 5" loading="lazy" decoding="async">
+                    <img src="images/gallery5.jpg" alt="Galeri 5" loading="lazy" decoding="async" fetchpriority="low">
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
                 </div>
                 <div class="gallery-item" data-gallery-anim style="display:none;">
-                    <img src="images/gallery6.jpg" alt="Galeri 6" loading="lazy" decoding="async">
+                    <img src="images/gallery6.jpg" alt="Galeri 6" loading="lazy" decoding="async" fetchpriority="low">
                     <div class="gallery-overlay">
                         <i class="fas fa-search-plus"></i>
                     </div>
@@ -390,8 +436,12 @@ bak
                             </div>
                             <div class="info-content">
                                 <h4>Çalışma Saatleri</h4>
-                                    Cumartesi - Pazar: 10:00 - 00:00
-                                </p>
+                                <p>Pzt-Cum: 10:00 - 23:00<br>Cmt-Paz: 10:00 - 00:00</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-icons">
                         <a href="https://www.facebook.com/p/Konya-Pi%C5%9Fkin-Restaurant-100065527988376/" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-facebook-f"></i></a>
                         <a href="https://www.instagram.com/piskinrestorant/" class="social-icon" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
                     </div>

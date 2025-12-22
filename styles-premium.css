@@ -974,6 +974,11 @@ section:not(.hero)::before {
         box-shadow: none !important;
     }
 
+    .menu-hover {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
     /* Reduce other expensive effects for smoother scrolling */
     .section-label {
         backdrop-filter: none !important;

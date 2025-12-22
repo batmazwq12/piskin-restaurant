@@ -35,6 +35,20 @@ if (!ADMIN_TOKEN) {
 app.use(cors());
 app.use(express.json({ limit: '2mb' }));
 
+// Cache heavy static assets (safe for uploaded images because filenames are unique)
+app.use(
+  '/images',
+  express.static(path.join(__dirname, 'images'), {
+    maxAge: '7d'
+  })
+);
+app.use(
+  '/audio',
+  express.static(path.join(__dirname, 'audio'), {
+    maxAge: '7d'
+  })
+);
+
 // Railway (and most reverse proxies) forward https via headers
 app.set('trust proxy', 1);
 
@@ -118,9 +132,16 @@ app.get('/robots.txt', (req, res) => {
   );
 });
 
+// Favicon (many browsers + Google request /favicon.ico explicitly)
+app.get('/favicon.ico', (req, res) => {
+  res.set('Cache-Control', 'public, max-age=86400');
+  res.type('image/png');
+  res.sendFile(path.join(__dirname, 'images', 'piskin-logo.png'));
+});
+
 app.get('/sitemap.xml', (req, res) => {
   const base = getBaseUrl(req) || '';
-  const urls = ['/', '/admin'].map((p) => (base ? `${base}${p}` : p));
+  const urls = ['/'].map((p) => (base ? `${base}${p}` : p));
 
   res.type('application/xml');
   res.set('Cache-Control', 'no-store');
