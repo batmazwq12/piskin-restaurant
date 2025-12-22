@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Premium restaurant website with admin panel",
   "main": "server.js",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js"
