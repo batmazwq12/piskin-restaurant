@@ -65,6 +65,26 @@ body {
     align-items: center;
 }
 
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.logo .brand-mark {
+    width: 36px;
+    height: 36px;
+    flex: 0 0 auto;
+    color: var(--primary-color);
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1;
+}
+
 .logo h1 {
     font-family: 'Playfair Display', serif;
     font-size: 2rem;

@@ -1,49 +1,66 @@
-<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-  <!-- Gradient definitions -->
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Pi&#351;kin Restaurant logo">
   <defs>
-    <radialGradient id="bgGradient" cx="50%" cy="30%" r="70%">
-      <stop offset="0%" style="stop-color:#CD853F;stop-opacity:1" />
-      <stop offset="50%" style="stop-color:#A0522D;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#8B4513;stop-opacity:1" />
+    <style>
+      .brand-serif { font-family: "Playfair Display", "Cormorant Garamond", serif; }
+      .brand-sans { font-family: "Montserrat", "Segoe UI", Arial, sans-serif; }
+    </style>
+
+    <radialGradient id="bg" cx="50%" cy="30%" r="85%">
+      <stop offset="0%" stop-color="#CD853F"/>
+      <stop offset="55%" stop-color="#A0522D"/>
+      <stop offset="100%" stop-color="#8B4513"/>
     </radialGradient>
-    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#FFF8DC;stop-opacity:1" />
+
+    <linearGradient id="edge" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFF8DC" stop-opacity="0.22"/>
+      <stop offset="45%" stop-color="#FFD700" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#FFF8DC" stop-opacity="0.16"/>
     </linearGradient>
-    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
-      <feDropShadow dx="2" dy="2" stdDeviation="3" flood-color="#000" flood-opacity="0.3"/>
+
+    <filter id="softShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+
+    <filter id="textShadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000" flood-opacity="0.35"/>
     </filter>
   </defs>
-  
-  <!-- Outer decorative ring -->
-  <circle cx="50" cy="50" r="49" fill="none" stroke="#D2691E" stroke-width="1" opacity="0.4"/>
-  
-  <!-- Background circle with gradient -->
-  <circle cx="50" cy="50" r="46" fill="url(#bgGradient)" stroke="#A0522D" stroke-width="2" filter="url(#shadow)"/>
-  
-  <!-- Inner decorative rings -->
-  <circle cx="50" cy="50" r="38" fill="none" stroke="#CD853F" stroke-width="1" opacity="0.6"/>
-  <circle cx="50" cy="50" r="32" fill="none" stroke="#D2691E" stroke-width="0.5" opacity="0.4"/>
-  
-  <!-- Chef hat - more refined -->
-  <path d="M32 36 Q40 26 50 26 Q60 26 68 36 Q68 42 64 46 L60 50 L40 50 L36 46 Q32 42 32 36 Z" fill="#FFF8DC" opacity="0.95" filter="url(#shadow)"/>
-  
-  <!-- Chef hat band -->
-  <ellipse cx="50" cy="52" rx="14" ry="6" fill="#FFF8DC" opacity="0.95"/>
-  <ellipse cx="50" cy="52" rx="14" ry="6" fill="none" stroke="#E6E6FA" stroke-width="0.5"/>
-  
-  <!-- Decorative elements - crown jewels -->
-  <circle cx="44" cy="38" r="1.5" fill="#FFD700" opacity="0.9"/>
-  <circle cx="56" cy="38" r="1.5" fill="#FFD700" opacity="0.9"/>
-  <circle cx="50" cy="34" r="1.5" fill="#FFD700" opacity="0.9"/>
-  
-  <!-- Ornate P letter -->
-  <text x="50" y="75" text-anchor="middle" font-family="Cinzel, serif" font-size="16" font-weight="bold" fill="url(#textGradient)" filter="url(#shadow)">P</text>
-  
-  <!-- Elegant subtitle -->
-  <text x="50" y="87" text-anchor="middle" font-family="Cinzel, serif" font-size="6" fill="#D2691E" opacity="0.9">RESTAURANT</text>
-  
-  <!-- Decorative flourishes -->
-  <path d="M25 75 Q30 72 35 75" stroke="#CD853F" stroke-width="1" fill="none" opacity="0.6"/>
-  <path d="M65 75 Q70 72 75 75" stroke="#CD853F" stroke-width="1" fill="none" opacity="0.6"/>
+
+  <!-- Premium mark: subtle gradient, refined border, clean typography -->
+  <rect x="16" y="16" width="480" height="480" rx="104" fill="url(#bg)" filter="url(#softShadow)"/>
+  <rect x="30" y="30" width="452" height="452" rx="96" fill="none" stroke="url(#edge)" stroke-width="2"/>
+  <rect x="44" y="44" width="424" height="424" rx="88" fill="none" stroke="#D2691E" stroke-opacity="0.18" stroke-width="1"/>
+
+  <!-- Wordmark -->
+  <text
+    x="256"
+    y="250"
+    text-anchor="middle"
+    class="brand-serif"
+    font-size="136"
+    font-weight="600"
+    fill="#FFF8DC"
+    letter-spacing="0.5"
+    filter="url(#textShadow)"
+  >Pi&#351;kin</text>
+
+  <!-- Ornament line -->
+  <g opacity="0.9">
+    <path d="M144 298 H368" stroke="#FFF8DC" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="144" cy="298" r="4" fill="#FFF8DC"/>
+    <circle cx="368" cy="298" r="4" fill="#FFF8DC"/>
+    <circle cx="256" cy="298" r="5" fill="#FFD700" opacity="0.35"/>
+  </g>
+
+  <text
+    x="256"
+    y="368"
+    text-anchor="middle"
+    class="brand-sans"
+    font-size="42"
+    font-weight="600"
+    fill="#FFF8DC"
+    letter-spacing="10"
+    opacity="0.96"
+  >RESTAURANT</text>
 </svg>

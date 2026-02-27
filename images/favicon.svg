@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Pişkin Restaurant">
+  <defs>
+    <filter id="s" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="2" stdDeviation="2" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <!-- Minimal, high-contrast mark that reads well at favicon sizes -->
+  <g fill="none" stroke="#FFD700" stroke-linecap="round" stroke-linejoin="round" filter="url(#s)">
+    <circle cx="32" cy="32" r="27" stroke-width="2.5"/>
+    <circle cx="32" cy="32" r="21" stroke-width="1.5" opacity="0.55"/>
+
+    <!-- Stylized monogram “P” -->
+    <path d="M26 46V18h11q9 0 9 8t-9 8H26" stroke-width="3.6"/>
+
+    <!-- Small signature diamond -->
+    <path d="M32 49l3 3-3 3-3-3 3-3z" stroke-width="1.8" opacity="0.9"/>
+  </g>
+</svg>

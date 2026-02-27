@@ -40,6 +40,13 @@ body {
     gap: 15px;
 }
 
+.brand .brand-mark {
+    width: 34px;
+    height: 34px;
+    color: var(--accent);
+    flex: 0 0 auto;
+}
+
 .brand .badge {
     font-size: 1.4rem;
     color: var(--accent);

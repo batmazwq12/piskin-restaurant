@@ -134,7 +134,7 @@ app.get('/robots.txt', (req, res) => {
 
 // Favicon (many browsers + Google request /favicon.ico explicitly)
 app.get('/favicon.ico', (req, res) => {
-  res.set('Cache-Control', 'public, max-age=86400');
+  res.set('Cache-Control', 'public, max-age=3600');
   res.type('image/png');
   res.sendFile(path.join(__dirname, 'images', 'piskin-logo.png'));
 });

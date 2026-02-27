@@ -5,7 +5,7 @@ Bu klasör Pişkin Restaurant website'i için gerekli görselleri içerir.
 ## Gerekli Görseller:
 
 ### Logo
-- `piskin-logo.png` - Restaurant logosu (80x80px önerilen)
+- `piskin-logo.svg` - Restaurant logosu (favicon ve site içinde kullanıma uygun)
 
 ### Hero Slider Resimleri
 - `restaurant1.jpg` - Restaurant iç mekan

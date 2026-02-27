@@ -173,6 +173,13 @@ body::before {
     gap: 15px;
 }
 
+.brand-mark {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 auto;
+    color: var(--gold);
+}
+
 .logo-ornament {
     color: var(--gold);
     font-size: 1.2rem;
