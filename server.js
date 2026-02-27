@@ -25,7 +25,7 @@ const upload = multer({ storage });
 
 const app = express();
 const PORT = process.env.PORT || 5500;
-const ADMIN_TOKEN = process.env.ADMIN_TOKEN;
+const curl https://your-railway-url/site-content.jsADMIN_TOKEN = process.env.ADMIN_TOKEN;
 const DATA_PATH = path.join(__dirname, 'data', 'content.json');
 
 if (!ADMIN_TOKEN) {
@@ -159,7 +159,9 @@ app.get('/sitemap.xml', (req, res) => {
 });
 // Expose content to the frontend as a small JS payload (used for hero slideshow etc.)
 app.get('/site-content.js', (req, res) => {
-  res.set('Cache-Control', 'no-store');
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+  res.set('Pragma', 'no-cache');
+  res.set('Expires', '0');
   res.type('application/javascript');
   res.send('window.__SITE_CONTENT = ' + JSON.stringify(readContent()) + ';');
 });
